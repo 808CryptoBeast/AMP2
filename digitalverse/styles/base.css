@@ -1,0 +1,159 @@
+/* ========== ALOHA IKEVERSE BASE STYLES ========== */
+:root {
+  /* Aloha Ikeverse Color System */
+  --ike-bg: #0f172a;
+  --ike-surface: #161b22;
+  --ike-text: #f1f5f9;
+  --ike-muted: #94a3b8;
+  --ike-accent: #00f7ff;
+  --ike-success: #00c853;
+  --ike-warning: #ffab00;
+  --ike-error: #ff1744;
+  --ike-card-bg: rgba(30, 41, 59, 0.5);
+  --ike-glass: rgba(30, 41, 59, 0.3);
+  
+  /* Protocol-specific colors */
+  --ike-bitcoin: #f7931a;
+  --ike-xrpl: #25aae1;
+  --ike-ethereum: #8a92b2;
+  --ike-compassion: #ff6b6b;
+  
+  /* Bitcoin section compatibility */
+  --text-primary: #eaf6ff;
+  --text-secondary: #cfeefc;
+  --section-bg: linear-gradient(180deg, #001a33 0%, #003366 100%);
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  
+  /* Transitions */
+  --transition: all 0.3s ease;
+  --transition-slow: all 0.5s ease;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--ike-bg);
+  color: var(--ike-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Aloha Ikeverse Background System */
+#bg-videos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  opacity: 0;
+  transition: opacity 1s ease;
+  object-fit: cover;
+}
+
+.bg-video.active {
+  opacity: 0.2;
+}
+
+.bg-fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, var(--ike-bg), var(--ike-surface));
+}
+
+/* Selection Styles */
+::selection {
+  background: var(--ike-accent);
+  color: var(--ike-bg);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ike-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ike-accent);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00d4ff;
+}
+
+/* Focus Styles */
+:focus {
+  outline: 2px solid var(--ike-accent);
+  outline-offset: 2px;
+}
+
+/* Utility Text Classes */
+.text-accent { color: var(--ike-accent); }
+.text-muted { color: var(--ike-muted); }
+.text-success { color: var(--ike-success); }
+.text-warning { color: var(--ike-warning); }
+.text-error { color: var(--ike-error); }
+
+.tiny { font-size: 0.85rem; }
+.small { font-size: 0.9rem; }
+.large { font-size: 1.1rem; }
+
+/* Responsive Base */
+@media (max-width: 768px) {
+  :root {
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+  }
+}

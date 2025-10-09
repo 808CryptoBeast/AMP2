@@ -1,0 +1,473 @@
+/* ========== KNOWLEDGE PATH ========== */
+/* ========== KNOWLEDGE PATH HEADER ========== */
+.knowledge-path-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+  position: relative;
+  padding: var(--space-xl) 0;
+}
+
+.knowledge-path-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--ike-accent), transparent);
+  border-radius: 2px;
+}
+
+.knowledge-path-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--ike-text) 0%, var(--ike-accent) 50%, var(--ike-compassion) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-lg);
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::before {
+  content: '✨';
+  position: absolute;
+  top: -20px;
+  left: -30px;
+  font-size: 1.5rem;
+  animation: sparkle 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.section-title::after {
+  content: '✨';
+  position: absolute;
+  bottom: -20px;
+  right: -30px;
+  font-size: 1.5rem;
+  animation: sparkle 3s ease-in-out infinite 1.5s;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.section-subtitle {
+  font-size: 1.3rem;
+  color: var(--ike-muted);
+  max-width: 700px;
+  margin: var(--space-lg) auto 0;
+  line-height: 1.7;
+  font-weight: 400;
+  position: relative;
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(0, 247, 255, 0.02) 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.section-subtitle::before {
+  content: '"';
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 3rem;
+  color: var(--ike-accent);
+  opacity: 0.3;
+  font-family: serif;
+}
+
+.section-subtitle::after {
+  content: '"';
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 3rem;
+  color: var(--ike-accent);
+  opacity: 0.3;
+  font-family: serif;
+}
+
+/* Header Animations */
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+  }
+}
+
+@keyframes header-glow {
+  0%, 100% {
+    text-shadow: 0 0 30px rgba(0, 247, 255, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 50px rgba(0, 247, 255, 0.6),
+                 0 0 70px rgba(157, 78, 221, 0.3);
+  }
+}
+
+.section-title {
+  animation: header-glow 4s ease-in-out infinite;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .knowledge-path-header {
+    padding: var(--space-lg) 0;
+  }
+  
+  .section-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  .section-title::before,
+  .section-title::after {
+    display: none;
+  }
+  
+  .section-subtitle {
+    font-size: 1.1rem;
+    padding: var(--space-md);
+    margin: var(--space-md) auto 0;
+  }
+  
+  .section-subtitle::before {
+    top: 5px;
+    left: 15px;
+    font-size: 2rem;
+  }
+  
+  .section-subtitle::after {
+    bottom: 5px;
+    right: 15px;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .knowledge-path-header::before {
+    width: 60px;
+  }
+  
+  .knowledge-path-header::after {
+    width: 120px;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+    padding: var(--space-sm);
+  }
+}
+
+.knowledge-path {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.path-progress {
+  position: relative;
+  padding: var(--space-xl) 0;
+}
+
+.path-line {
+  position: absolute;
+  top: 120px;
+  left: 60px;
+  right: 60px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.path-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--ike-accent), #9d4edd);
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(0, 247, 255, 0.5);
+  transition: width 1.5s ease;
+  position: relative;
+}
+
+.path-fill::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: var(--ike-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 20px var(--ike-accent);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.path-milestones {
+  position: relative;
+  z-index: 2;
+}
+
+.milestone {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-lg);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.4s ease;
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+.milestone::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.05), transparent);
+  transition: left 0.6s ease;
+}
+
+.milestone:hover::before {
+  left: 100%;
+}
+
+.milestone:hover {
+  transform: translateX(10px);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.milestone.active {
+  border-color: rgba(0, 247, 255, 0.3);
+  background: linear-gradient(135deg, rgba(0, 247, 255, 0.05), transparent);
+}
+
+.milestone.current {
+  border-color: var(--ike-accent);
+  background: linear-gradient(135deg, rgba(0, 247, 255, 0.1), transparent);
+  box-shadow: 0 10px 30px rgba(0, 247, 255, 0.1);
+}
+
+.milestone-marker {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.milestone-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  font-size: 2.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+}
+
+.milestone.active .milestone-icon {
+  border-color: rgba(0, 247, 255, 0.5);
+  background: rgba(0, 247, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 247, 255, 0.2);
+}
+
+.milestone.current .milestone-icon {
+  border-color: var(--ike-accent);
+  background: rgba(0, 247, 255, 0.2);
+  box-shadow: 0 0 30px rgba(0, 247, 255, 0.4);
+  animation: milestone-pulse 2s ease-in-out infinite;
+}
+
+.milestone-content h4 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  color: var(--ike-text);
+}
+
+.milestone-content p {
+  color: var(--ike-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Encouragement Card */
+.path-encouragement {
+  position: sticky;
+  top: var(--space-xl);
+}
+
+.encouragement-card {
+  background: linear-gradient(135deg, rgba(0, 247, 255, 0.05), rgba(157, 78, 221, 0.05));
+  padding: var(--space-2xl);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(0, 247, 255, 0.2);
+  text-align: center;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.encouragement-icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-lg);
+  animation: float-gentle 3s ease-in-out infinite;
+}
+
+.encouragement-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  color: var(--ike-text);
+}
+
+.encouragement-card p {
+  color: var(--ike-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+}
+
+.encouragement-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.encouragement-stat {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--ike-accent);
+  margin-bottom: var(--space-xs);
+  text-shadow: 0 0 20px rgba(0, 247, 255, 0.5);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--ike-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Animations */
+@keyframes pulse-dot {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(0, 247, 255, 0.7);
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(0, 247, 255, 0);
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+@keyframes milestone-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 247, 255, 0.6);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 968px) {
+  .knowledge-path {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  
+  .path-encouragement {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .path-line {
+    left: 50px;
+    right: 50px;
+    top: 100px;
+  }
+  
+  .milestone {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+  }
+  
+  .milestone-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+  
+  .encouragement-card {
+    padding: var(--space-xl);
+  }
+  
+  .encouragement-icon {
+    font-size: 3rem;
+  }
+  
+  .encouragement-stats {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .path-line {
+    display: none;
+  }
+  
+  .milestone {
+    padding: var(--space-md);
+  }
+  
+  .milestone-content h4 {
+    font-size: 1.2rem;
+  }
+}

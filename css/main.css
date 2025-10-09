@@ -1,0 +1,150 @@
+/* ==================== */
+/* MAIN CSS ENTRY POINT */
+/* ==================== */
+
+/* Base Styles (Fundamentals) */
+@import url('base/_variables.css');
+@import url('base/_reset.css');
+@import url('base/_typography.css');
+@import url('base/_utilities.css');
+
+/* Components (Reusable UI Elements) */
+@import url('components/_buttons.css');
+@import url('components/_cards.css');
+@import url('components/_forms.css');
+@import url('components/_navigation.css');
+
+/* Sections (Page-Specific Styles) */
+@import url('sections/_header.css');
+@import url('sections/_hero.css');
+@import url('sections/_intro.css');
+@import url('sections/_meaning.css');
+@import url('sections/_lifestyle.css');
+@import url('sections/_parallax.css');
+@import url('sections/_marketplace.css');
+@import url('sections/_knowledge-hub.css');
+@import url('sections/_dictionary.css');
+@import url('sections/_faq.css');
+@import url('sections/_join.css');
+@import url('sections/_footer.css');
+
+/* ==================== */
+/* GLOBAL OVERRIDES */
+/* ==================== */
+
+/* Print Styles */
+@media print {
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  .site-header,
+  .site-footer {
+    display: none;
+  }
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==================== */
+/* LAYOUT UTILITIES */
+/* ==================== */
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section {
+  padding: 80px 0;
+  position: relative;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: var(--secondary-color);
+  margin-bottom: 1.5rem;
+  position: relative;
+  text-align: center;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--tribal-border-color);
+}
+
+/* ==================== */
+/* TRIBAL BORDER EFFECTS */
+/* ==================== */
+
+.tribal-border-top {
+  position: relative;
+}
+
+.tribal-border-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--tribal-border-color) 20%,
+    var(--tribal-border-color) 80%,
+    transparent 100%
+  );
+}
+
+.tribal-border-bottom {
+  position: relative;
+}
+
+.tribal-border-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--tribal-border-color) 20%,
+    var(--tribal-border-color) 80%,
+    transparent 100%
+  );
+}
+
+/* ==================== */
+/* Z-INDEX MANAGEMENT */
+/* ==================== */
+
+:root {
+  --z-index-base: 1;
+  --z-index-header: 1000;
+  --z-index-modal: 2000;
+  --z-index-overlay: 3000;
+}

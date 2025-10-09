@@ -1,0 +1,278 @@
+/* ========== ALOHA IKEVERSE CONTACT ========== */
+.contact-section {
+  padding: var(--space-2xl) 0;
+  position: relative;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  margin-top: var(--space-xl);
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--ike-card-bg);
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.contact-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.contact-item:hover::before {
+  left: 100%;
+}
+
+.contact-item:hover {
+  transform: translateX(8px);
+  border-color: var(--ike-accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.contact-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 247, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ike-accent);
+  font-size: 1.5rem;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.contact-item:hover .contact-icon {
+  background: rgba(0, 247, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.contact-details {
+  flex: 1;
+}
+
+.contact-label {
+  font-weight: 600;
+  color: var(--ike-text);
+  margin-bottom: var(--space-xs);
+  font-size: 1.1rem;
+}
+
+.contact-value {
+  color: var(--ike-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.contact-value a {
+  color: var(--ike-accent);
+  text-decoration: none;
+  transition: var(--transition);
+  position: relative;
+}
+
+.contact-value a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--ike-accent);
+  transition: width 0.3s ease;
+}
+
+.contact-value a:hover {
+  color: var(--ike-text);
+}
+
+.contact-value a:hover::after {
+  width: 100%;
+}
+
+.contact-form-container {
+  background: var(--ike-card-bg);
+  padding: var(--space-2xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-form-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ike-accent), var(--ike-compassion));
+}
+
+.contact-form .form-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Contact methods grid */
+.contact-methods {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-2xl);
+}
+
+.contact-method {
+  text-align: center;
+  padding: var(--space-xl);
+  background: var(--ike-card-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-method::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ike-accent), transparent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.contact-method:hover::before {
+  transform: scaleX(1);
+}
+
+.contact-method:hover {
+  transform: translateY(-5px);
+  border-color: var(--ike-accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.method-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+  display: block;
+  color: var(--ike-accent);
+  transition: var(--transition);
+}
+
+.contact-method:hover .method-icon {
+  transform: scale(1.1);
+}
+
+.contact-method h4 {
+  color: var(--ike-text);
+  margin-bottom: var(--space-sm);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.contact-method p {
+  color: var(--ike-muted);
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Map container */
+.contact-map {
+  margin-top: var(--space-2xl);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 300px;
+  background: var(--ike-card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ike-muted);
+  font-size: 1.1rem;
+}
+
+/* Responsive contact */
+@media (max-width: 968px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  
+  .contact-info {
+    order: 2;
+  }
+  
+  .contact-form-container {
+    order: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: var(--space-xl) 0;
+  }
+  
+  .contact-form-container {
+    padding: var(--space-xl);
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-md);
+  }
+  
+  .contact-methods {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form-container {
+    padding: var(--space-lg);
+  }
+  
+  .contact-item {
+    padding: var(--space-md);
+  }
+  
+  .contact-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+}

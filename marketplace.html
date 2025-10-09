@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMP Marketplace</title>
+  <link rel="stylesheet" href="css/marketplace.css">
+</head>
+<body>
+  <!-- Marketplace Section -->
+  <section id="marketplace" class="marketplace-section">
+    <div class="container">
+      <header class="marketplace-header">
+        <h2>AMP Marketplace</h2>
+        <p class="marketplace-subtitle">Wear the Spirit of Aloha</p>
+      </header>
+      
+      <div class="product-categories">
+        <button class="category-btn active" data-category="all">All Items</button>
+        <button class="category-btn" data-category="shirts">Shirts</button>
+        <button class="category-btn" data-category="hats">Hats</button>
+        <button class="category-btn" data-category="stickers">Stickers</button>
+        <button class="category-btn" data-category="accessories">Accessories</button>
+      </div>
+      
+      <div class="products-grid">
+        <!-- Products will be dynamically loaded here -->
+      </div>
+      
+      <div class="admin-controls" style="display: none;">
+        <button id="add-product-btn" class="admin-btn">
+          <span class="plus-icon">+</span> Add New Product
+        </button>
+      </div>
+      
+      <!-- Product Modal -->
+      <div id="product-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-modal" aria-label="Close modal">&times;</span>
+          <h3 id="modal-title">Add New Product</h3>
+          <form id="product-form">
+            <input type="hidden" id="product-id">
+            
+            <div class="form-group">
+              <label for="product-name">Product Name</label>
+              <input type="text" id="product-name" required placeholder="Enter product name">
+            </div>
+            
+            <div class="form-group">
+              <label for="product-category">Category</label>
+              <select id="product-category" required>
+                <option value="">Select a category</option>
+                <option value="shirts">Shirt</option>
+                <option value="hats">Hat</option>
+                <option value="stickers">Sticker</option>
+                <option value="accessories">Accessory</option>
+              </select>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group half-width">
+                <label for="product-price">Price ($)</label>
+                <input type="number" id="product-price" step="0.01" min="0" required placeholder="0.00">
+              </div>
+              
+              <div class="form-group half-width">
+                <label for="product-stock">Stock Quantity</label>
+                <input type="number" id="product-stock" min="0" required placeholder="0">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="product-description">Description</label>
+              <textarea id="product-description" rows="4" placeholder="Enter product description"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="product-image">Image URL</label>
+              <input type="url" id="product-image" required placeholder="https://example.com/image.jpg">
+              <small class="form-hint">Use high-quality images (minimum 800x800px)</small>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="cancel-btn">Cancel</button>
+              <button type="submit" class="save-btn">Save Product</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Checkout Modal -->
+      <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-modal" aria-label="Close modal">&times;</span>
+          <h3>Complete Your Purchase</h3>
+          
+          <div id="checkout-summary">
+            <div class="order-summary">
+              <h4>Your Order</h4>
+              <div class="order-items">
+                <!-- Items will be dynamically added here -->
+              </div>
+              <div class="order-total">
+                <p>Subtotal: <span class="subtotal-amount">$0.00</span></p>
+                <p>Shipping: <span class="shipping-amount">$5.99</span></p>
+                <p class="total-amount">Total: <span>$0.00</span></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="payment-options">
+            <h4>Select Payment Method</h4>
+            <button class="payment-btn venmo">
+              <span class="payment-icon">V</span> Pay with Venmo
+            </button>
+            <button class="payment-btn paypal">
+              <span class="payment-icon">P</span> Pay with PayPal
+            </button>
+            <button class="payment-btn cashapp">
+              <span class="payment-icon">C</span> Pay with Cash App
+            </button>
+          </div>
+          
+          <div class="checkout-footer">
+            <p class="secure-checkout">
+              <span class="lock-icon">🔒</span> Secure checkout
+            </p>
+            <p class="return-policy">
+              <a href="#" class="return-link">30-day return policy</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/marketplace.js" defer></script>
+</body>
+</html>

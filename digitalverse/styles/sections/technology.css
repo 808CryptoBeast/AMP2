@@ -1,0 +1,79 @@
+/* ========== ALOHA IKEVERSE TECHNOLOGY ========== */
+#technology {
+    padding: var(--space-xl) var(--space-md);
+    background: var(--section-bg);
+}
+
+.tech-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.tech-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--ike-accent);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.tech-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--ike-accent), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.tech-item:hover::before {
+    transform: translateX(0);
+}
+
+.tech-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(8px);
+}
+
+.tech-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+.tech-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 247, 255, 0.1);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ike-accent);
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+.tech-item:hover .tech-icon {
+    transform: rotate(10deg);
+    background: rgba(0, 247, 255, 0.2);
+}
+
+.tech-name {
+    font-weight: 600;
+    color: var(--ike-text);
+}
+
+.tech-description {
+    color: var(--ike-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}

@@ -1,0 +1,300 @@
+/* ========== ALOHA IKEVERSE TEAM ========== */
+.team-section {
+  padding: var(--space-2xl) 0;
+  position: relative;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+.team-member {
+  background: var(--ike-card-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  text-align: center;
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+.team-member::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ike-accent), var(--ike-compassion));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.team-member:hover::before {
+  transform: scaleX(1);
+}
+
+.team-member:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--ike-accent);
+}
+
+.member-image {
+  width: 100%;
+  height: 280px;
+  background: var(--ike-surface);
+  position: relative;
+  overflow: hidden;
+}
+
+.member-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--ike-accent), transparent);
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+}
+
+.team-member:hover .member-image::before {
+  opacity: 0.2;
+}
+
+.member-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: var(--ike-accent);
+  opacity: 0.3;
+  transition: var(--transition);
+}
+
+.team-member:hover .member-image-placeholder {
+  transform: scale(1.1);
+  opacity: 0.5;
+}
+
+.member-info {
+  padding: var(--space-xl);
+  position: relative;
+}
+
+.member-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+  color: var(--ike-text);
+  transition: var(--transition);
+}
+
+.team-member:hover .member-name {
+  color: var(--ike-accent);
+}
+
+.member-role {
+  color: var(--ike-accent);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.member-bio {
+  color: var(--ike-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin-bottom: var(--space-lg);
+}
+
+.member-expertise {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+  margin-bottom: var(--space-lg);
+}
+
+.expertise-tag {
+  background: rgba(0, 247, 255, 0.1);
+  color: var(--ike-accent);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(0, 247, 255, 0.2);
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.expertise-tag:hover {
+  background: rgba(0, 247, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 247, 255, 0.2);
+}
+
+/* Social links */
+.member-social {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-link {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ike-muted);
+  text-decoration: none;
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.social-link:hover::before {
+  left: 100%;
+}
+
+.social-link:hover {
+  background: var(--ike-accent);
+  color: var(--ike-bg);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 247, 255, 0.3);
+  border-color: var(--ike-accent);
+}
+
+/* Team member variants */
+.team-member.featured {
+  border: 2px solid var(--ike-accent);
+  background: linear-gradient(135deg, var(--ike-card-bg), rgba(0, 247, 255, 0.05));
+}
+
+.team-member.featured::before {
+  background: linear-gradient(90deg, var(--ike-accent), #00d4ff, var(--ike-accent));
+}
+
+/* Team stats */
+.team-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  margin: var(--space-2xl) 0;
+}
+
+.team-stat {
+  text-align: center;
+  padding: var(--space-xl);
+  background: var(--ike-card-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+}
+
+.team-stat:hover {
+  transform: translateY(-5px);
+  border-color: var(--ike-accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-number {
+  display: block;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--ike-accent);
+  margin-bottom: var(--space-sm);
+  line-height: 1;
+}
+
+.stat-label {
+  color: var(--ike-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive team */
+@media (max-width: 1024px) {
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .team-section {
+    padding: var(--space-xl) 0;
+  }
+  
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  
+  .member-image {
+    height: 250px;
+  }
+  
+  .member-info {
+    padding: var(--space-lg);
+  }
+  
+  .team-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .member-expertise {
+    gap: var(--space-xs);
+  }
+  
+  .expertise-tag {
+    font-size: 0.75rem;
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .social-link {
+    width: 40px;
+    height: 40px;
+  }
+}

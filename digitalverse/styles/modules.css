@@ -1,0 +1,176 @@
+/* ========== ALOHA IKEVERSE MODULES ========== */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.module-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.module-card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.module-card-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+.module-card-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.module-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--ike-accent);
+}
+
+.module-level {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.level-beginner {
+  background: rgba(0, 200, 83, 0.2);
+  color: var(--ike-success);
+}
+
+.level-intermediate {
+  background: rgba(255, 171, 0, 0.2);
+  color: var(--ike-warning);
+}
+
+.level-advanced {
+  background: rgba(255, 23, 68, 0.2);
+  color: var(--ike-error);
+}
+
+.progress-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--ike-accent);
+  transition: width 0.5s ease;
+}
+
+/* Lesson Content */
+.lesson-content {
+  line-height: 1.8;
+}
+
+.lesson-content h2 {
+  margin: 2rem 0 1rem;
+  color: var(--ike-accent);
+}
+
+.lesson-content h3 {
+  margin: 1.5rem 0 0.75rem;
+}
+
+.lesson-content p {
+  margin-bottom: 1rem;
+}
+
+.lesson-content ul, .lesson-content ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.lesson-content li {
+  margin-bottom: 0.5rem;
+}
+
+.key-concept {
+  background: rgba(242, 169, 0, 0.1);
+  border-left: 4px solid var(--ike-accent);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.key-concept h4 {
+  color: var(--ike-accent);
+  margin-bottom: 0.5rem;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab {
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  border-bottom: 3px solid transparent;
+}
+
+.tab.active {
+  border-bottom: 3px solid var(--ike-accent);
+  color: var(--ike-accent);
+}
+
+.tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero p {
+    font-size: 1.1rem;
+  }
+  .module-grid {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .module-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

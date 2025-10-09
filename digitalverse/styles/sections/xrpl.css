@@ -1,0 +1,266 @@
+/* ======================== */
+/* ALOHA IKEVERSE XRPL HISTORY SECTION */
+/* ======================== */
+
+.xrpl-history {
+  position: relative;
+  padding: 100px 20px;
+  color: #fff;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(75, 0, 130, 0.6); /* purple glow around section */
+}
+
+/* Video background */
+.xrpl-history .wave-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* full coverage */
+  opacity: 0.25;           /* soften for readability */
+  z-index: 0;
+}
+
+/* Optional subtle dark overlay on top of video */
+.xrpl-history::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 1;
+}
+
+/* Bring content above video and overlay */
+.xrpl-history h2,
+.xrpl-history .card,
+.xrpl-history .ecosystem-grid {
+  position: relative;
+  z-index: 2;
+}
+
+/* Section heading */
+.xrpl-history h2 {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  font-size: 2.8rem;
+  margin-bottom: 70px;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  /* Gradient Ripple Blue text */
+  background: linear-gradient(90deg, #25aae1, #7fdbff, #25aae1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Neon text glow */
+  text-shadow: 
+    0 0 10px rgba(37, 170, 225, 0.8),
+    0 0 20px rgba(37, 170, 225, 0.6);
+
+  /* Glow animation */
+  animation: glowPulse 3s infinite ease-in-out;
+
+  padding-left: 65px; /* space for icon */
+}
+
+/* XRP icon before text */
+.xrpl-history h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: url("/assets/images/xrp.svg") no-repeat center center;
+  background-size: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(37, 170, 225, 0.7);
+  transition: transform 1s ease-in-out;
+}
+
+/* Spin icon on hover */
+.xrpl-history h2:hover::before {
+  transform: translateY(-50%) rotate(360deg);
+}
+
+/* Glowing underline divider */
+.xrpl-history h2::after {
+  content: "";
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #25aae1, transparent);
+  box-shadow: 0 0 10px rgba(37, 170, 225, 0.7);
+  border-radius: 2px;
+}
+
+/* Glow pulse keyframes */
+@keyframes glowPulse {
+  0% {
+    text-shadow: 
+      0 0 8px rgba(37, 170, 225, 0.8),
+      0 0 16px rgba(37, 170, 225, 0.6);
+  }
+  50% {
+    text-shadow: 
+      0 0 14px rgba(37, 170, 225, 1),
+      0 0 28px rgba(37, 170, 225, 0.9);
+  }
+  100% {
+    text-shadow: 
+      0 0 8px rgba(37, 170, 225, 0.8),
+      0 0 16px rgba(37, 170, 225, 0.6);
+  }
+}
+
+
+/* Card styling with full background image */
+.xrpl-history .card {
+  position: relative;
+  z-index: 2;
+  background: 
+    linear-gradient(rgba(20,30,40,0.7), rgba(20,30,40,0.7)), /* dark overlay for readability */
+    url("/assets/images/xrp-background.jpg") no-repeat center center;
+  background-size: cover; /* full card coverage */
+  border-radius: 16px;
+  padding: 25px;
+  margin: 25px auto;
+  max-width: 900px;
+  box-shadow: 
+    0 4px 20px rgba(0,0,0,0.4),
+    0 0 20px rgba(37, 170, 225, 0.6); /* bluish glow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Section heading */
+.xrpl-history h2 {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  font-size: 2.8rem;
+  margin-bottom: 50px;
+  color: #25aae1; /* Ripple blue */
+  text-shadow: 
+    0 0 10px rgba(37, 170, 225, 0.8),
+    0 0 20px rgba(37, 170, 225, 0.6);
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding-left: 60px; /* space for icon */
+  z-index: 2;
+}
+
+/* XRP icon before text */
+.xrpl-history h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background: url("/assets/images/xrp.svg") no-repeat center center;
+  background-size: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(37, 170, 225, 0.7);
+  z-index: 3;
+}
+
+/* Gradient halo behind title */
+.xrpl-history h2::after {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 120px;
+  background: radial-gradient(circle at center, rgba(37, 170, 225, 0.25), transparent 70%);
+  filter: blur(40px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Watermark logo behind heading (on section container) */
+.xrpl-history::after {
+  content: "";
+  position: absolute;
+  top: 40px; /* adjust vertical placement */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  background: url("/assets/images/xrp.svg") no-repeat center;
+  background-size: contain;
+  opacity: 0.08;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+
+/* Card headings */
+.xrpl-history .card h3 {
+  color: #25aae1;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  text-shadow: 0 0 8px rgba(37, 170, 225, 0.7);
+}
+
+/* Ecosystem grid */
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.ecosystem-grid div {
+  background: rgba(37, 170, 225, 0.1);
+  border: 1px solid rgba(37, 170, 225, 0.3);
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+/* Links */
+.xrpl-history a {
+  color: #25aae1;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.xrpl-history a:hover {
+  color: #3bd3ff;
+}
+
+/* Lists inside cards */
+.xrpl-history ul {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.xrpl-history li {
+  margin-bottom: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .xrpl-history {
+    padding: 60px 15px;
+  }
+  .xrpl-history h2 {
+    font-size: 2rem;
+  }
+  .xrpl-history .card {
+    padding: 20px;
+    background-size: 70px;
+  }
+}

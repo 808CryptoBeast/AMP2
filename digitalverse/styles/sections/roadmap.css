@@ -1,0 +1,159 @@
+/* ========== ALOHA IKEVERSE ROADMAP SECTION ========== */
+#roadmap {
+  padding: var(--space-xl) var(--space-md);
+  background: var(--section-bg);
+  position: relative;
+}
+
+#roadmap::before {
+  content: "🗺️";
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 4rem;
+  opacity: 0.05;
+}
+
+.roadmap-timeline {
+  position: relative;
+  max-width: 800px;
+  margin: var(--space-xl) auto;
+}
+
+.roadmap-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--ike-accent), var(--ike-success));
+  transform: translateX(-50%);
+  border-radius: 3px;
+  box-shadow: 0 0 10px var(--ike-accent);
+}
+
+.roadmap-item {
+  position: relative;
+  margin-bottom: var(--space-xl);
+  width: 45%;
+  transition: var(--transition);
+}
+
+.roadmap-item:hover {
+  transform: translateY(-2px);
+}
+
+.roadmap-item:nth-child(odd) {
+  left: 0;
+}
+
+.roadmap-item:nth-child(even) {
+  left: 55%;
+}
+
+.roadmap-milestone {
+  background: var(--ike-surface);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.roadmap-milestone:hover {
+  border-color: var(--ike-accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.roadmap-milestone::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  background: var(--ike-accent);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 15px var(--ike-accent);
+  transition: var(--transition);
+}
+
+.roadmap-item:hover .roadmap-milestone::before {
+  transform: translateY(-50%) scale(1.2);
+  background: var(--ike-success);
+}
+
+.roadmap-item:nth-child(odd) .roadmap-milestone::before {
+  right: -60px;
+}
+
+.roadmap-item:nth-child(even) .roadmap-milestone::before {
+  left: -60px;
+}
+
+.milestone-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--ike-text);
+}
+
+.milestone-date {
+  color: var(--ike-accent);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  font-size: 0.9rem;
+}
+
+.milestone-description {
+  color: var(--ike-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Status indicators */
+.milestone-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: var(--space-sm);
+}
+
+.status-completed {
+  background: rgba(0, 200, 83, 0.2);
+  color: var(--ike-success);
+}
+
+.status-in-progress {
+  background: rgba(255, 171, 0, 0.2);
+  color: var(--ike-warning);
+}
+
+.status-upcoming {
+  background: rgba(138, 146, 178, 0.2);
+  color: var(--ike-ethereum);
+}
+
+@media (max-width: 768px) {
+  .roadmap-timeline::before {
+    left: 30px;
+  }
+  
+  .roadmap-item {
+    width: 100%;
+    padding-left: 60px;
+  }
+  
+  .roadmap-item:nth-child(even) {
+    left: 0;
+  }
+  
+  .roadmap-item:nth-child(odd) .roadmap-milestone::before,
+  .roadmap-item:nth-child(even) .roadmap-milestone::before {
+    left: -45px;
+  }
+}

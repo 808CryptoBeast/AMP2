@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikeverse - Aloha Mass Productions</title>
+    <link rel="stylesheet" href="../css/ikeverse.css">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <script src="../js/ikeverse.js" defer></script>
+    <meta name="theme-color" content="#1A4C6E">
+</head>
+<body>
+
+    <!-- Navigation Sidebar -->
+<nav id="amp-nav">
+        <div class="nav-header">
+            <button class="sidebar-toggle">
+                <img src="/assets/AMP Tiki.jpg" alt="AMP Logo" class="tiki-logo">
+            </button>
+            <h1>Aloha Mass</h1>
+        </div>
+        <ul>
+            <li><a href="../index.html"><iconify-icon icon="fluent:home-32-filled"></iconify-icon> <span>Home</span></a></li>
+            <li><a href="marketplace.html"><iconify-icon icon="fluent:store-24-filled"></iconify-icon> <span>Marketplace</span></a></li>
+            <li><a href="profile.html"><iconify-icon icon="fluent:person-32-filled"></iconify-icon> <span>Profile</span></a></li>
+            <li><a href="ikeverse.html"><iconify-icon icon="fluent:book-open-24-filled"></iconify-icon> <span>Ikeverse</span></a></li>
+            <li><a href="digitalverse/digitalverse.html" class="active"><iconify-icon icon="fluent:globe-24-filled"></iconify-icon> <span>Digitalverse</span></a></li>
+            <li><a href="todo.html"><iconify-icon icon="fluent:calendar-24-filled"></iconify-icon> <span>Tasks</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="ikeverse-main">
+        <!-- Celestial Header -->
+        <header class="celestial-header">
+            <div class="moon-phase-wrapper">
+                <div class="moon-surface"></div>
+            </div>
+            <h1>Nā Hōkū o ka ʻIke<br><span>The Stars of Knowledge</span></h1>
+            <div class="milky-way-overlay"></div>
+        </header>
+
+        <!-- Kumulipo Module -->
+        <section class="foundational-module">
+            <div class="module-header">
+                <h2>Kumulipo: Foundation of Knowledge</h2>
+                <p>The Hawaiian creation chant that connects all wisdom</p>
+            </div>
+            
+            <div class="module-card" id="kumulipo-module">
+                <div class="module-art">
+                    <div class="moon-art">
+                        <div class="moon-craters"></div>
+                    </div>
+                </div>
+                <div class="module-content">
+                    <h3>The Kumulipo</h3>
+                    <div class="module-progress">
+                        <div class="progress-bar" style="width: 20%"></div>
+                        <span>20% Complete</span>
+                    </div>
+                    <p>Begin your journey through the sacred Hawaiian creation chant that traces the genealogy of life itself.</p>
+                    <button class="module-button" onclick="openKumulipoModal()">
+                        Begin Study
+                        <iconify-icon icon="fluent:book-24-filled"></iconify-icon>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Course Navigation -->
+        <section class="course-nav">
+            <div class="search-wrapper">
+                <input type="text" id="ike-search" placeholder="E ʻimi i ka ʻike... (Search knowledge)" 
+                       aria-label="Search courses">
+                <iconify-icon icon="fluent:search-24-filled" class="search-icon"></iconify-icon>
+            </div>
+            
+            <div class="category-filters">
+                <button class="tribal-filter active">All Pathways</button>
+                <button class="tribal-filter">Moʻolelo</button>
+                <button class="tribal-filter">Hōkūleʻa</button>
+                <button class="tribal-filter">Kilo Hōkū</button>
+            </div>
+        </section>
+
+        <!-- Learning Pathways -->
+        <section class="learning-pathways">
+            <div class="pathway-header">
+                <h2>Nā Ala ʻIke</h2>
+                <p>Pathways of Knowledge</p>
+            </div>
+            
+            <div class="pathway-container">
+                <!-- Moʻolelo Pathway -->
+                <div class="pathway-card" data-pathway="moolelo">
+                    <div class="pathway-icon">
+                        <iconify-icon icon="fluent:book-globe-24-filled"></iconify-icon>
+                    </div>
+                    <div class="pathway-content">
+                        <h3>Moʻolelo</h3>
+                        <div class="pathway-progress">
+                            <div class="progress-bar" style="width: 15%"></div>
+                            <span>15% Complete</span>
+                        </div>
+                        <p>Traditional knowledge through modern technology</p>
+                        <button class="pathway-button" onclick="viewPathway('moolelo')">
+                            Continue Learning
+                            <iconify-icon icon="fluent:arrow-right-24-filled"></iconify-icon>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Hōkūleʻa Pathway -->
+                <div class="pathway-card" data-pathway="hokulea">
+                    <div class="pathway-icon">
+                        <iconify-icon icon="fluent:compass-northwest-24-filled"></iconify-icon>
+                    </div>
+                    <div class="pathway-content">
+                        <h3>Hōkūleʻa</h3>
+                        <div class="pathway-progress">
+                            <div class="progress-bar" style="width: 5%"></div>
+                            <span>5% Complete</span>
+                        </div>
+                        <p>Navigating modern technology</p>
+                        <button class="pathway-button" onclick="viewPathway('hokulea')">
+                            Begin Voyage
+                            <iconify-icon icon="fluent:arrow-right-24-filled"></iconify-icon>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Kilo Hōkū Pathway -->
+                <div class="pathway-card" data-pathway="kilo">
+                    <div class="pathway-icon">
+                        <iconify-icon icon="fluent:star-24-filled"></iconify-icon>
+                    </div>
+                    <div class="pathway-content">
+                        <h3>Kilo Hōkū</h3>
+                        <div class="pathway-progress">
+                            <div class="progress-bar" style="width: 0%"></div>
+                            <span>Not Started</span>
+                        </div>
+                        <p>Celestial knowledge meets AI</p>
+                        <button class="pathway-button" onclick="viewPathway('kilo')">
+                            Begin Journey
+                            <iconify-icon icon="fluent:arrow-right-24-filled"></iconify-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Celestial Overlay -->
+    <div id="celestial-canvas">
+        <div class="milky-way-overlay"></div>
+        <div id="star-field"></div>
+        <div class="moon-phase-wrapper">
+            <div class="moon-surface"></div>
+        </div>
+    </div>
+
+    <!-- Kumulipo Modal -->
+    <div id="kumulipo-modal" class="kumulipo-modal">
+        <div class="kumulipo-content">
+            <div class="kumulipo-header">
+                <h3>Kumulipo: The Creation Chant</h3>
+                <button class="kumulipo-close" onclick="closeKumulipoModal()">
+                    <iconify-icon icon="fluent:dismiss-24-filled"></iconify-icon>
+                </button>
+            </div>
+            
+            <div class="kumulipo-body">
+                <div class="kumulipo-section">
+                    <h4>Introduction</h4>
+                    <p class="kumulipo-text">The Kumulipo is a sacred Hawaiian creation chant that traces the genealogy of the Hawaiian people and the cosmos itself.</p>
+                    
+                    <div class="kumulipo-media">
+                        <div class="media-placeholder" style="background: linear-gradient(45deg, #1A4C6E, #ee8b36);">
+                            <iconify-icon icon="fluent:video-24-filled" width="48"></iconify-icon>
+                            <p>3D Animation: The Birth of the Cosmos</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="kumulipo-section">
+                    <h4>The Chant</h4>
+                    <p class="kumulipo-text">The chant begins in the deep darkness of Po (the night of creation):</p>
+                    
+                    <blockquote class="kumulipo-quote">
+                        "O ke au i kahuli wela ka honua<br>
+                        O ke au i kahuli lole ka lani<br>
+                        O ke au i kukaʻiaka ka lā..."
+                    </blockquote>
+                    
+                    <p class="kumulipo-text">This describes the time when the earth became hot, the heavens turned, and the sun appeared in the sky.</p>
+                </div>
+                
+                <div class="kumulipo-section">
+                    <div class="kumulipo-quiz">
+                        <h5>Knowledge Check</h5>
+                        <p>What does Kumulipo mean in Hawaiian?</p>
+                        
+                        <div class="quiz-options">
+                            <button class="quiz-option">Ocean current</button>
+                            <button class="quiz-option">Source of darkness</button>
+                            <button class="quiz-option">Mountain peak</button>
+                        </div>
+                        
+                        <div class="quiz-feedback">
+                            <iconify-icon icon="fluent:checkmark-24-filled" class="correct-icon"></iconify-icon>
+                            <p class="feedback-text">Correct! Kumulipo refers to the source of darkness, the primordial darkness from which all life emerges.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="kumulipo-footer">
+                <button class="kumulipo-nav" onclick="navigateModule(-1)">
+                    <iconify-icon icon="fluent:chevron-left-24-filled"></iconify-icon>
+                    Previous
+                </button>
+                <button class="kumulipo-nav" onclick="navigateModule(1)">
+                    Next
+                    <iconify-icon icon="fluent:chevron-right-24-filled"></iconify-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

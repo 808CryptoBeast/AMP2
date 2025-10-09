@@ -1,0 +1,35 @@
+css/
+├── base/               # Foundational styles
+│   ├── _variables.css  # CSS custom properties
+│   ├── _reset.css      # Normalize/reset styles
+│   ├── _typography.css # Font-related styles
+│   └── _utilities.css  # Utility classes
+│
+├── components/         # Reusable components
+│   ├── _buttons.css
+│   ├── _cards.css
+│   ├── _navigation.css
+│   └── _forms.css
+│
+├── sections/           # Page section-specific styles
+│   ├── _hero.css
+│   ├── _amp-intro.css
+│   ├── _meaning.css
+│   ├── _lifestyle.css
+│   ├── _parallax-quote.css
+│   ├── _products.css
+│   ├── _knowledge-hub.css
+│   ├── _join.css
+│   ├── _ikeverse.css
+│   └── _roadmap.css
+│
+├── layouts/            # Layout structures
+│   ├── _header.css
+│   ├── _footer.css
+│   └── _grids.css
+│
+├── animations/         # Animation styles
+│   ├── _keyframes.css
+│   └── _transitions.css
+│
+└── main.css            # Main file that imports all partials

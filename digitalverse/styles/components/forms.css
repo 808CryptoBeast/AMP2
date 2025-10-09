@@ -1,0 +1,204 @@
+/* ========== ALOHA IKEVERSE FORMS ========== */
+.form-group {
+  margin-bottom: var(--space-lg);
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  color: var(--ike-text);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.form-label.required::after {
+  content: '*';
+  color: var(--ike-error);
+  margin-left: var(--space-xs);
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  color: var(--ike-text);
+  font-family: inherit;
+  transition: var(--transition);
+  font-size: 0.95rem;
+  backdrop-filter: blur(10px);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--ike-muted);
+  opacity: 0.7;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--ike-accent);
+  box-shadow: 0 0 0 3px rgba(0, 247, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2300f7ff'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-md) center;
+  background-size: 16px;
+  padding-right: var(--space-xl);
+}
+
+/* Form validation states */
+.form-input:invalid:not(:focus):not(:placeholder-shown) {
+  border-color: var(--ike-error);
+}
+
+.form-input:valid:not(:focus):not(:placeholder-shown) {
+  border-color: var(--ike-success);
+}
+
+.form-error {
+  color: var(--ike-error);
+  font-size: 0.85rem;
+  margin-top: var(--space-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.form-error::before {
+  content: '⚠';
+  font-size: 0.8rem;
+}
+
+.form-success {
+  color: var(--ike-success);
+  font-size: 0.85rem;
+  margin-top: var(--space-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.form-success::before {
+  content: '✓';
+  font-size: 0.8rem;
+}
+
+/* Checkbox and Radio */
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.form-check:hover {
+  transform: translateX(4px);
+}
+
+.form-check-input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--ike-accent);
+  cursor: pointer;
+}
+
+.form-check-label {
+  color: var(--ike-text);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* Form groups */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: flex-end;
+  margin-top: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.form-actions .btn {
+  min-width: 120px;
+}
+
+/* Form variants */
+.form-compact .form-group {
+  margin-bottom: var(--space-md);
+}
+
+.form-compact .form-input,
+.form-compact .form-textarea,
+.form-compact .form-select {
+  padding: var(--space-sm) var(--space-md);
+}
+
+/* Dark form variant */
+.form-dark .form-input,
+.form-dark .form-textarea,
+.form-dark .form-select {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.form-dark .form-input:focus,
+.form-dark .form-textarea:focus,
+.form-dark .form-select:focus {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: var(--ike-accent);
+}
+
+/* Responsive forms */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+  
+  .form-actions {
+    justify-content: stretch;
+  }
+  
+  .form-actions .btn {
+    flex: 1;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-input,
+  .form-textarea,
+  .form-select {
+    padding: var(--space-sm);
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+}

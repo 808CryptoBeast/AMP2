@@ -1,0 +1,363 @@
+/* ========== LEARNING PATHS ========== */
+.protocol-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  border: 2px solid transparent;
+  background: var(--ike-card-bg);
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  max-width: 100%;
+  margin: 0;
+}
+
+.protocol-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--protocol-color), transparent);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.protocol-card:hover::before {
+  transform: scaleX(1);
+}
+
+.protocol-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Protocol Header with Logo and Title */
+.protocol-card .card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  gap: var(--space-md);
+}
+
+.protocol-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.protocol-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--protocol-gradient);
+  border-radius: 14px;
+  opacity: 0.5;
+}
+
+.protocol-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  position: relative;
+  z-index: 2;
+}
+
+/* Make all logos exactly the same size */
+.bitcoin-card .protocol-logo,
+.ethereum-card .protocol-logo,
+.xrpl-card .protocol-logo {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.protocol-card:hover .protocol-logo {
+  transform: scale(1.15) rotate(5deg);
+}
+
+/* Bitcoin glow effect */
+.bitcoin-card:hover .protocol-logo {
+  filter: drop-shadow(0 0 12px var(--ike-bitcoin)) 
+          drop-shadow(0 0 20px rgba(247, 147, 26, 0.4));
+}
+
+/* Ethereum glow effect */
+.ethereum-card:hover .protocol-logo {
+  filter: drop-shadow(0 0 12px var(--ike-ethereum)) 
+          drop-shadow(0 0 20px rgba(138, 146, 178, 0.4));
+}
+
+/* XRPL glow effect */
+.xrpl-card:hover .protocol-logo {
+  filter: drop-shadow(0 0 12px var(--ike-xrpl)) 
+          drop-shadow(0 0 20px rgba(37, 170, 225, 0.4));
+}
+
+.protocol-card .card-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, var(--ike-text), var(--protocol-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  flex: 1;
+}
+
+.protocol-card:hover .card-title {
+  background: linear-gradient(135deg, var(--protocol-color), var(--ike-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Bitcoin Card */
+.bitcoin-card {
+  --protocol-color: var(--ike-bitcoin);
+  --protocol-gradient: linear-gradient(135deg, #f7931a, #ffa94d);
+}
+
+.bitcoin-card {
+  background: linear-gradient(135deg, var(--ike-card-bg), rgba(247, 147, 26, 0.03));
+  border-color: rgba(247, 147, 26, 0.15);
+}
+
+.bitcoin-card:hover {
+  border-color: var(--ike-bitcoin);
+  box-shadow: 0 20px 40px rgba(247, 147, 26, 0.15);
+}
+
+.bitcoin-card .protocol-icon {
+  background: linear-gradient(135deg, rgba(247, 147, 26, 0.2), rgba(247, 147, 26, 0.1));
+  border: 2px solid rgba(247, 147, 26, 0.3);
+  box-shadow: 0 8px 20px rgba(247, 147, 26, 0.2);
+}
+
+.bitcoin-chip {
+  background: rgba(247, 147, 26, 0.1);
+  color: #f7931a;
+  border: 1px solid rgba(247, 147, 26, 0.3);
+}
+
+.bitcoin-btn {
+  background: linear-gradient(135deg, var(--ike-bitcoin), #e6851e);
+  color: white;
+  border: none;
+}
+
+.bitcoin-btn:hover {
+  background: linear-gradient(135deg, #e6851e, var(--ike-bitcoin));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(247, 147, 26, 0.4);
+}
+
+/* Ethereum Card */
+.ethereum-card {
+  --protocol-color: var(--ike-ethereum);
+  --protocol-gradient: linear-gradient(135deg, #8a92b2, #a5adcf);
+}
+
+.ethereum-card {
+  background: linear-gradient(135deg, var(--ike-card-bg), rgba(138, 146, 178, 0.03));
+  border-color: rgba(138, 146, 178, 0.15);
+}
+
+.ethereum-card:hover {
+  border-color: var(--ike-ethereum);
+  box-shadow: 0 20px 40px rgba(138, 146, 178, 0.15);
+}
+
+.ethereum-card .protocol-icon {
+  background: linear-gradient(135deg, rgba(138, 146, 178, 0.2), rgba(138, 146, 178, 0.1));
+  border: 2px solid rgba(138, 146, 178, 0.3);
+  box-shadow: 0 8px 20px rgba(138, 146, 178, 0.2);
+}
+
+.ethereum-chip {
+  background: rgba(138, 146, 178, 0.1);
+  color: #8a92b2;
+  border: 1px solid rgba(138, 146, 178, 0.3);
+}
+
+.ethereum-btn {
+  background: linear-gradient(135deg, var(--ike-ethereum), #727aa0);
+  color: white;
+  border: none;
+}
+
+.ethereum-btn:hover {
+  background: linear-gradient(135deg, #727aa0, var(--ike-ethereum));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(138, 146, 178, 0.4);
+}
+
+/* XRPL Card */
+.xrpl-card {
+  --protocol-color: var(--ike-xrpl);
+  --protocol-gradient: linear-gradient(135deg, #25aae1, #4dc3ff);
+}
+
+.xrpl-card {
+  background: linear-gradient(135deg, var(--ike-card-bg), rgba(37, 170, 225, 0.03));
+  border-color: rgba(37, 170, 225, 0.15);
+}
+
+.xrpl-card:hover {
+  border-color: var(--ike-xrpl);
+  box-shadow: 0 20px 40px rgba(37, 170, 225, 0.15);
+}
+
+.xrpl-card .protocol-icon {
+  background: linear-gradient(135deg, rgba(37, 170, 225, 0.2), rgba(37, 170, 225, 0.1));
+  border: 2px solid rgba(37, 170, 225, 0.3);
+  box-shadow: 0 8px 20px rgba(37, 170, 225, 0.2);
+}
+
+.xrpl-chip {
+  background: rgba(37, 170, 225, 0.1);
+  color: #25aae1;
+  border: 1px solid rgba(37, 170, 225, 0.3);
+}
+
+.xrpl-btn {
+  background: linear-gradient(135deg, var(--ike-xrpl), #1e8fc4);
+  color: white;
+  border: none;
+}
+
+.xrpl-btn:hover {
+  background: linear-gradient(135deg, #1e8fc4, var(--ike-xrpl));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 170, 225, 0.4);
+}
+
+/* Card Content */
+.protocol-card .card-body {
+  padding: 0;
+}
+
+.protocol-card .card-body p {
+  color: var(--ike-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+  font-size: 1rem;
+}
+
+.protocol-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.protocol-card .card-footer {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+}
+
+/* Enhanced hover effects */
+.protocol-card:hover .protocol-icon {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px var(--protocol-glow, rgba(0, 247, 255, 0.3));
+}
+
+/* Mobile responsive */
+@media (max-width: 968px) {
+  .protocol-card .card-header {
+    flex-direction: row;
+    text-align: left;
+    gap: var(--space-md);
+  }
+  
+  .protocol-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 14px;
+    padding: 10px;
+  }
+  
+  .protocol-logo {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .protocol-card .card-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #learning-paths {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  
+  .protocol-card {
+    padding: var(--space-lg);
+    margin-bottom: 0;
+  }
+  
+  .protocol-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .protocol-card .card-header {
+    gap: var(--space-md);
+  }
+  
+  .protocol-icon {
+    width: 50px;
+    height: 50px;
+    padding: 8px;
+  }
+  
+  .protocol-logo {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .protocol-card .card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-sm);
+  }
+  
+  .protocol-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    padding: 12px;
+  }
+  
+  .protocol-logo {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  
+  .protocol-card .card-title {
+    font-size: 1.4rem;
+  }
+  
+  .protocol-tags {
+    justify-content: center;
+  }
+}

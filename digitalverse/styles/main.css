@@ -1,0 +1,62 @@
+/* ========== ALOHA IKEVERSE - MAIN CSS ========== */
+/* The Knowledge Universe with Aloha Spirit */
+
+/* Import all CSS files in correct order */
+@import url('base.css');
+@import url('layout.css');
+@import url('components/navigation.css');
+@import url('components/buttons.css');
+@import url('components/cards.css');
+@import url('components/forms.css');
+@import url('components/footer.css');
+@import url('components/team.css');
+@import url('components/contact.css');
+@import url('theme.css');
+@import url('modules.css');
+@import url('blockchain-history.css');
+
+/* Section Styles - All content sections we've created */
+@import url('sections/hero.css');
+@import url('sections/knowledge-path.css');
+@import url('sections/learning-paths.css');
+@import url('sections/verification-skills.css');
+@import url('sections/introduction.css');
+@import url('sections/features.css');
+@import url('sections/technology.css');
+@import url('sections/bitcoin.css');
+@import url('sections/xrpl.css');
+@import url('sections/ethereum.css');
+@import url('sections/adoption.css');
+@import url('sections/timeline.css');
+@import url('sections/future.css');
+@import url('sections/did-you-know.css');
+@import url('sections/roadmap.css');
+
+/* ========== ALOHA IKEVERSE BRAND ANIMATIONS ========== */
+@keyframes aloha-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes ike-float {
+  0%, 100% { 
+    transform: translateY(0px);
+  }
+  50% { 
+    transform: translateY(-10px);
+  }
+}
+
+.aloha-brand {
+  animation: aloha-pulse 4s ease-in-out infinite;
+}
+
+.ike-float {
+  animation: ike-float 3s ease-in-out infinite;
+}

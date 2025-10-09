@@ -1,0 +1,139 @@
+/* ========== ALOHA IKEVERSE TIMELINE SECTION ========== */
+#timeline {
+  position: relative;
+  max-width: 1000px;
+  margin: 4rem auto;
+  padding: var(--space-xl) var(--space-md);
+  background: var(--ike-card-bg);
+  border-radius: var(--radius-lg);
+}
+
+#timeline::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  background: linear-gradient(180deg, var(--ike-accent), var(--ike-success));
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+}
+
+#timeline .timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+#timeline .timeline-item:nth-child(odd) {
+  left: 0;
+}
+
+#timeline .timeline-item:nth-child(even) {
+  left: 50%;
+}
+
+#timeline .timeline-item::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: var(--ike-bg);
+  border: 3px solid var(--ike-accent);
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+  transition: var(--transition);
+}
+
+#timeline .timeline-item:hover::after {
+  background-color: var(--ike-accent);
+  transform: scale(1.2);
+  box-shadow: 0 0 15px var(--ike-accent);
+}
+
+#timeline .timeline-item:nth-child(odd)::after {
+  right: -10px;
+}
+
+#timeline .timeline-item:nth-child(even)::after {
+  left: -10px;
+}
+
+#timeline .timeline-content {
+  padding: 20px;
+  background-color: var(--ike-surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+#timeline .timeline-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ike-accent), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+#timeline .timeline-content:hover::before {
+  transform: translateX(0);
+}
+
+#timeline .timeline-content:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--ike-accent);
+}
+
+#timeline .timeline-date {
+  font-weight: 700;
+  color: var(--ike-accent);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+#timeline .timeline-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--ike-text);
+}
+
+#timeline h2 {
+  text-align: center;
+  color: var(--ike-accent);
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 768px) {
+  #timeline::before {
+    left: 31px;
+  }
+
+  #timeline .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+  #timeline .timeline-item:nth-child(even) {
+    left: 0;
+  }
+
+  #timeline .timeline-item:nth-child(odd)::after, 
+  #timeline .timeline-item:nth-child(even)::after {
+    left: 18px;
+  }
+}

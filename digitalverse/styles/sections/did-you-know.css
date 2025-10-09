@@ -1,0 +1,432 @@
+/* ========== ALOHA IKEVERSE DID YOU KNOW SECTION ========== */
+#did-you-know {
+  background: var(--section-bg);
+  padding: 3rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+#did-you-know::before {
+  content: "💡";
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  font-size: 6rem;
+  opacity: 0.03;
+  animation: aloha-pulse 5s ease-in-out infinite;
+}
+
+.dyk-title {
+  text-align: center;
+  color: var(--ike-accent);
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.dyk-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--ike-accent), transparent);
+  border-radius: 2px;
+}
+
+.dyk-emoji {
+  font-size: 2rem;
+  animation: ike-float 3s ease-in-out infinite;
+}
+
+/* Carousel */
+.dyk-carousel {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.dyk-carousel-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--ike-card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dyk-slide {
+  display: none;
+}
+
+.dyk-slide.dyk-active {
+  display: block;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.dyk-insight-box {
+  background: rgba(0, 247, 255, 0.1);
+  border: 1px solid rgba(0, 247, 255, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin: 1rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.dyk-insight-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ike-accent), transparent);
+}
+
+.dyk-insight-box h4 {
+  color: var(--ike-accent);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.dyk-insight-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dyk-insight-box li {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+  transition: var(--transition);
+}
+
+.dyk-insight-box li:hover {
+  transform: translateX(5px);
+}
+
+.dyk-insight-box li:before {
+  content: "•";
+  color: var(--ike-accent);
+  position: absolute;
+  left: 0.5rem;
+  font-weight: bold;
+}
+
+.dyk-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.dyk-prev, .dyk-next {
+  background: var(--ike-accent);
+  color: var(--ike-bg);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dyk-prev:hover, .dyk-next:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px var(--ike-accent);
+}
+
+.dyk-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dyk-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ike-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.dyk-dot.dyk-active {
+  background: var(--ike-accent);
+  transform: scale(1.2);
+  box-shadow: 0 0 10px var(--ike-accent);
+}
+
+/* Cards Grid */
+.dyk-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 3rem 0;
+}
+
+.dyk-tech-card {
+  background: var(--ike-card-bg);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.dyk-tech-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.dyk-tech-card[data-category="bitcoin"]::before {
+  background: var(--ike-bitcoin);
+}
+
+.dyk-tech-card[data-category="xrpl"]::before {
+  background: var(--ike-xrpl);
+}
+
+.dyk-tech-card[data-category="ethereum"]::before {
+  background: var(--ike-ethereum);
+}
+
+.dyk-tech-card:hover::before {
+  transform: scaleX(1);
+}
+
+.dyk-tech-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.dyk-card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  transition: var(--transition);
+}
+
+.dyk-tech-card:hover .dyk-card-icon {
+  transform: scale(1.1);
+}
+
+.dyk-tech-card h3 {
+  color: var(--ike-text);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.dyk-tech-card p {
+  color: var(--ike-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.dyk-card-stats {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.9rem;
+  color: var(--ike-accent);
+  font-weight: 600;
+}
+
+/* Tech Tip */
+.dyk-tech-tip {
+  background: rgba(0, 247, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin: 3rem 0;
+  border: 1px solid rgba(0, 247, 255, 0.2);
+  position: relative;
+}
+
+.dyk-tech-tip::before {
+  content: "🔧";
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  background: var(--section-bg);
+  padding: 0 10px;
+  font-size: 1.5rem;
+}
+
+.dyk-tech-tip h3 {
+  color: var(--ike-accent);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.dyk-tech-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.dyk-feature {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.dyk-feature:hover {
+  border-color: var(--ike-accent);
+  transform: translateY(-2px);
+}
+
+.dyk-feature h4 {
+  color: var(--ike-accent);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.dyk-feature p {
+  color: var(--ike-muted);
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Research Box */
+.dyk-research-box {
+  background: rgba(255, 171, 0, 0.1);
+  border-left: 4px solid var(--ike-warning);
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  position: relative;
+}
+
+.dyk-research-box::before {
+  content: "🔬";
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  opacity: 0.3;
+}
+
+.dyk-research-box h4 {
+  color: var(--ike-warning);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.dyk-research-points {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.dyk-point {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--ike-warning);
+  transition: var(--transition);
+}
+
+.dyk-point:hover {
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Counter */
+.dyk-counter {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.dyk-counter-item {
+  padding: 2rem;
+  background: var(--ike-card-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.dyk-counter-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ike-accent), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.dyk-counter-item:hover::before {
+  transform: translateX(0);
+}
+
+.dyk-counter-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.dyk-counter-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--ike-accent);
+  margin-bottom: 0.5rem;
+}
+
+.dyk-counter-label {
+  color: var(--ike-muted);
+  font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .dyk-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dyk-tech-features {
+    grid-template-columns: 1fr;
+  }
+  
+  .dyk-counter {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .dyk-title {
+    font-size: 2rem;
+  }
+}

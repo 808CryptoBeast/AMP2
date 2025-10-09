@@ -1,0 +1,224 @@
+/* Verification Skills Section - Ikeverse Theme */
+.verification-skills {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, var(--ike-bg) 0%, var(--ike-surface) 100%);
+}
+
+.knowledge-path-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--ike-text);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--ike-accent) 0%, var(--ike-xrpl) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: var(--ike-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Skills Progress Track */
+.skills-progress {
+  max-width: 800px;
+  margin: 0 auto 4rem;
+}
+
+.skill-track {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  position: relative;
+}
+
+.skill-track::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ike-success) 0%, var(--ike-warning) 50%, var(--ike-error) 100%);
+  z-index: 1;
+}
+
+.skill-level {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.level-label {
+  display: inline-block;
+  background: var(--ike-card-bg);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--ike-text);
+  border: 2px solid;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.skill-level:nth-child(1) .level-label {
+  border-color: var(--ike-success);
+  color: var(--ike-success);
+}
+
+.skill-level:nth-child(2) .level-label {
+  border-color: var(--ike-warning);
+  color: var(--ike-warning);
+}
+
+.skill-level:nth-child(3) .level-label {
+  border-color: var(--ike-error);
+  color: var(--ike-error);
+}
+
+.level-skills {
+  background: var(--ike-card-bg);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--ike-glass);
+}
+
+.level-skills span {
+  display: block;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  background: var(--ike-glass);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--ike-text);
+  border-left: 4px solid;
+  transition: all 0.3s ease;
+}
+
+.level-skills span:hover {
+  transform: translateX(4px);
+  background: var(--ike-surface);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.skill-level:nth-child(1) .level-skills span {
+  border-left-color: var(--ike-success);
+}
+
+.skill-level:nth-child(2) .level-skills span {
+  border-left-color: var(--ike-warning);
+}
+
+.skill-level:nth-child(3) .level-skills span {
+  border-left-color: var(--ike-error);
+}
+
+/* Verification Callout */
+.verification-callout {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.callout-content {
+  background: var(--ike-card-bg);
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--ike-glass);
+}
+
+.callout-content h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--ike-text);
+  margin-bottom: 1rem;
+}
+
+.callout-content p {
+  font-size: 1.125rem;
+  color: var(--ike-muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.btn-large {
+  padding: 1rem 2.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--ike-accent) 0%, var(--ike-xrpl) 100%);
+  color: var(--ike-bg);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 247, 255, 0.3);
+}
+
+.btn-large:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 247, 255, 0.5);
+  background: linear-gradient(135deg, var(--ike-xrpl) 0%, var(--ike-accent) 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .skill-track {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .skill-track::before {
+    display: none;
+  }
+  
+  .level-label {
+    margin-bottom: 1rem;
+  }
+  
+  .callout-content {
+    padding: 2rem;
+    margin: 0 1rem;
+  }
+}
+
+/* Animation for skill items */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skill-level {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.skill-level:nth-child(1) { animation-delay: 0.1s; }
+.skill-level:nth-child(2) { animation-delay: 0.2s; }
+.skill-level:nth-child(3) { animation-delay: 0.3s; }

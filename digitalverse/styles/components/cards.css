@@ -1,0 +1,154 @@
+/* ========== ALOHA IKEVERSE CARDS ========== */
+.card {
+  background: var(--ike-card-bg);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  margin: 1.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ike-accent), transparent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card.glass {
+  background: var(--ike-glass);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.75rem;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+  color: var(--ike-accent);
+  transition: var(--transition);
+}
+
+.card:hover .card-icon {
+  transform: scale(1.1);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ike-text);
+  margin: 0;
+}
+
+.card-subtitle {
+  color: var(--ike-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.card-body {
+  color: var(--ike-text);
+  line-height: 1.6;
+}
+
+.card-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Card variants */
+.card-featured {
+  border: 2px solid var(--ike-accent);
+  background: linear-gradient(135deg, var(--ike-card-bg), rgba(0, 247, 255, 0.05));
+}
+
+.card-featured::before {
+  background: linear-gradient(90deg, var(--ike-accent), #00d4ff, var(--ike-accent));
+}
+
+.card-horizontal {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.card-horizontal .card-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.card-compact {
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.card-compact .card-header {
+  margin-bottom: 0.75rem;
+}
+
+/* Insight Box */
+.insight-box {
+  background: rgba(0, 247, 255, 0.1);
+  border-left: 4px solid var(--ike-accent);
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.insight-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 247, 255, 0.05), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.insight-box:hover::before {
+  opacity: 1;
+}
+
+.insight-box h4 {
+  color: var(--ike-accent);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.insight-box p {
+  color: var(--ike-text);
+  margin: 0;
+  line-height: 1.6;
+}
