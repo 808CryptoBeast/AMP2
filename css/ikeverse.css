@@ -31,6 +31,22 @@ body {
   transition: margin-left var(--transition-speed);
 }
 
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background: var(--secondary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.75rem;
+  z-index: 1001;
+  cursor: pointer;
+  display: none;
+  color: white;
+  font-size: 1.2rem;
+}
+
 /* Dynamic Sidebar */
 #amp-nav {
   position: fixed;
@@ -41,7 +57,7 @@ body {
   background: var(--dark-color);
   padding: 1rem;
   border-right: 2px solid var(--tribal-border-color);
-  transition: width var(--transition-speed);
+  transition: all var(--transition-speed);
   overflow: hidden;
   z-index: 1000;
 }
@@ -487,14 +503,27 @@ body {
 }
 
 @media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
   #amp-nav {
-    width: 100%;
-    height: auto;
-    position: relative;
+    width: 80%;
+    height: 100vh;
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform var(--transition-speed);
+    z-index: 1000;
+  }
+  
+  #amp-nav.collapsed {
+    transform: translateX(0);
+    width: 80%;
   }
   
   #ikeverse-main {
-    margin-left: 0;
+    margin-left: 0 !important;
+    padding: 1rem;
   }
   
   .module-card {
@@ -504,7 +533,13 @@ body {
   .celestial-header {
     height: 200px;
   }
-}/* FAQ Section Styles */
+  
+  .celestial-header h1 {
+    font-size: 2rem;
+  }
+}
+
+/* FAQ Section Styles */
 .faq-section {
   background-color: var(--dark-color);
   padding: 80px 0;
@@ -739,4 +774,3 @@ body {
 .dictionary-card:nth-child(4) { animation-delay: 0.4s; }
 .dictionary-card:nth-child(5) { animation-delay: 0.5s; }
 .dictionary-card:nth-child(6) { animation-delay: 0.6s; }
-/* Continue as needed for more cards */
