@@ -20,6 +20,7 @@ const Navigation = {
     createMobileSidebar: function() {
         // Only create if it doesn't exist
         if (document.querySelector('.mobile-sidebar')) {
+            console.log('📱 Mobile sidebar already exists');
             return;
         }
 
@@ -27,7 +28,7 @@ const Navigation = {
             <div class="mobile-sidebar">
                 <div class="mobile-sidebar-header">
                     <div class="mobile-sidebar-brand">
-                        <img src="../assets/AMP Tiki.jpg" alt="AMP Logo" class="tiki-toggle" style="width: 32px; height: 32px; border-radius: 50%;">
+                        <div class="tiki-placeholder" style="width: 32px; height: 32px; border-radius: 50%; background: var(--ike-accent); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">A</div>
                         <span>Digitalverse</span>
                     </div>
                     <button class="mobile-sidebar-close" aria-label="Close menu">
@@ -72,7 +73,7 @@ const Navigation = {
         `;
         
         document.body.insertAdjacentHTML('beforeend', sidebarHTML);
-        console.log('📱 Mobile sidebar created');
+        console.log('📱 Mobile sidebar created successfully');
     },
 
     initMobileSidebar: function() {
@@ -109,6 +110,8 @@ const Navigation = {
                 console.log('🎯 Close button clicked');
                 this.closeMobileMenu();
             });
+        } else {
+            console.error('❌ Sidebar close button not found');
         }
 
         // Overlay click handler
@@ -118,6 +121,8 @@ const Navigation = {
                 console.log('🎯 Overlay clicked');
                 this.closeMobileMenu();
             });
+        } else {
+            console.error('❌ Overlay not found');
         }
 
         // Close on escape key
@@ -152,8 +157,13 @@ const Navigation = {
         const overlay = document.querySelector('.mobile-sidebar-overlay');
         const body = document.body;
 
-        if (!mobileSidebar || !overlay) {
-            console.error('❌ Mobile sidebar or overlay not found');
+        if (!mobileSidebar) {
+            console.error('❌ Mobile sidebar not found for opening');
+            return;
+        }
+
+        if (!overlay) {
+            console.error('❌ Overlay not found for opening');
             return;
         }
 
@@ -173,8 +183,13 @@ const Navigation = {
         const overlay = document.querySelector('.mobile-sidebar-overlay');
         const body = document.body;
 
-        if (!mobileSidebar || !overlay) {
-            console.error('❌ Mobile sidebar or overlay not found');
+        if (!mobileSidebar) {
+            console.error('❌ Mobile sidebar not found for closing');
+            return;
+        }
+
+        if (!overlay) {
+            console.error('❌ Overlay not found for closing');
             return;
         }
 
@@ -191,9 +206,12 @@ const Navigation = {
 
     initScrollEffects: function() {
         const nav = document.querySelector('.main-nav');
-        if (!nav) return;
+        if (!nav) {
+            console.log('⚠️ Main nav not found for scroll effects');
+            return;
+        }
 
-        const handleScroll = Utils.throttle(() => {
+        const handleScroll = () => {
             const currentScrollY = window.scrollY;
             const scrollThreshold = 100;
 
@@ -202,9 +220,25 @@ const Navigation = {
             } else {
                 nav.classList.remove('scrolled');
             }
-        }, 100);
+        };
 
-        window.addEventListener('scroll', handleScroll);
+        // Throttle the scroll handler
+        const throttledScroll = this.throttle(handleScroll, 100);
+        window.addEventListener('scroll', throttledScroll);
+    },
+
+    // Simple throttle function
+    throttle: function(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }
     },
 
     initNavLinks: function() {
@@ -221,7 +255,7 @@ const Navigation = {
                     const targetElement = document.getElementById(targetId);
                     
                     if (targetElement) {
-                        Utils.smoothScroll(href, 80);
+                        this.smoothScroll(href, 80);
                         this.setActiveNavLink(link);
                     }
                 }
@@ -232,11 +266,28 @@ const Navigation = {
         this.initScrollSpy();
     },
 
+    // Simple smooth scroll function
+    smoothScroll: function(target, offset = 0) {
+        const element = document.querySelector(target);
+        if (element) {
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    },
+
     initScrollSpy: function() {
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-links a[href^="#"], .mobile-sidebar-nav a[href^="#"]');
         
-        if (sections.length === 0) return;
+        if (sections.length === 0) {
+            console.log('⚠️ No sections found for scroll spy');
+            return;
+        }
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -276,6 +327,7 @@ const Navigation = {
         themeToggles.forEach(toggle => {
             toggle.addEventListener('click', (e) => {
                 e.stopPropagation();
+                console.log('🎨 Theme toggle clicked');
                 // This will be handled by your theme manager
                 if (window.ThemeManager) {
                     window.ThemeManager.cycleTheme();
