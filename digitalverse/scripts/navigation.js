@@ -1,19 +1,20 @@
-// Digitalverse Navigation System
+// Digitalverse Navigation System - Sidebar Mobile Navigation
 const Navigation = {
     isMobileMenuOpen: false,
 
     init: function() {
-        console.log('🌺 Initializing Digitalverse Navigation...');
+        console.log('🌐 Initializing Digitalverse Navigation...');
         
-        this.initMobileMenu();
+        this.initMobileSidebar();
         this.initScrollEffects();
         this.initNavLinks();
         this.initThemeToggle();
+        this.initMenuToggleAnimation();
         
         console.log('✅ Navigation initialized successfully');
     },
 
-    initMobileMenu: function() {
+    initMobileSidebar: function() {
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
         const body = document.body;
@@ -23,7 +24,9 @@ const Navigation = {
             return;
         }
 
-        menuToggle.addEventListener('click', () => {
+        // Menu toggle click handler
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
             this.toggleMobileMenu();
         });
 
@@ -51,6 +54,22 @@ const Navigation = {
                 this.closeMobileMenu();
             }
         });
+
+        // Close on window resize (if resizing to desktop)
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && this.isMobileMenuOpen) {
+                this.closeMobileMenu();
+            }
+        });
+    },
+
+    initMenuToggleAnimation: function() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        if (!menuToggle) return;
+
+        menuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
     },
 
     toggleMobileMenu: function() {
@@ -65,13 +84,21 @@ const Navigation = {
         const navLinks = document.querySelector('.nav-links');
         const menuToggle = document.querySelector('.menu-toggle');
         const body = document.body;
+        const overlay = this.createOverlay();
 
         navLinks.classList.add('active');
-        menuToggle.textContent = '✕';
+        menuToggle.classList.add('active');
         body.classList.add('mobile-menu-open');
+        body.appendChild(overlay);
+        
         this.isMobileMenuOpen = true;
 
-        // Dispatch custom event
+        // Animate in
+        setTimeout(() => {
+            navLinks.style.transform = 'translateX(0)';
+            overlay.classList.add('active');
+        }, 10);
+
         this.dispatchNavEvent('mobileMenuOpen');
     },
 
@@ -79,14 +106,34 @@ const Navigation = {
         const navLinks = document.querySelector('.nav-links');
         const menuToggle = document.querySelector('.menu-toggle');
         const body = document.body;
+        const overlay = document.querySelector('.nav-overlay');
 
-        navLinks.classList.remove('active');
-        menuToggle.textContent = '☰';
-        body.classList.remove('mobile-menu-open');
-        this.isMobileMenuOpen = false;
+        navLinks.style.transform = 'translateX(-100%)';
+        menuToggle.classList.remove('active');
+        
+        if (overlay) {
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                if (overlay.parentNode) {
+                    overlay.parentNode.removeChild(overlay);
+                }
+            }, 300);
+        }
 
-        // Dispatch custom event
+        setTimeout(() => {
+            navLinks.classList.remove('active');
+            body.classList.remove('mobile-menu-open');
+            this.isMobileMenuOpen = false;
+        }, 300);
+
         this.dispatchNavEvent('mobileMenuClose');
+    },
+
+    createOverlay: function() {
+        const overlay = document.createElement('div');
+        overlay.className = 'nav-overlay';
+        overlay.addEventListener('click', () => this.closeMobileMenu());
+        return overlay;
     },
 
     initScrollEffects: function() {
@@ -106,7 +153,7 @@ const Navigation = {
                 nav.classList.remove('scrolled');
             }
 
-            // Hide/show nav on scroll direction (optional)
+            // Hide/show nav on scroll direction
             if (currentScrollY > lastScrollY && currentScrollY > 200) {
                 nav.style.transform = 'translateY(-100%)';
             } else {
@@ -134,13 +181,14 @@ const Navigation = {
                     
                     if (targetElement) {
                         Utils.smoothScroll(href, 80);
-                        
-                        // Update active state
                         this.setActiveNavLink(link);
                     }
                 }
                 
-                // External links and other href types will behave normally
+                // Close mobile menu for any link click on mobile
+                if (this.isMobileMenuOpen) {
+                    this.closeMobileMenu();
+                }
             });
         });
 
@@ -153,8 +201,10 @@ const Navigation = {
 
     initScrollSpy: function() {
         const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-links a');
+        const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
         
+        if (sections.length === 0 || navLinks.length === 0) return;
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -197,11 +247,10 @@ const Navigation = {
     },
 
     initThemeToggle: function() {
-        // This is handled by ThemeManager, but we ensure the button exists
         const themeToggle = document.querySelector('.theme-toggle');
         if (themeToggle) {
             themeToggle.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent event bubbling
+                e.stopPropagation();
             });
         }
     },
