@@ -1,222 +1,162 @@
-// Digitalverse Progress Tracking
+// Digitalverse Progress Tracking System
 const ProgressTracker = {
-    userProgress: {
-        conceptsMastered: 12,
-        protocolsExplored: 3,
+    progress: {
+        completedProtocols: [],
+        completedModules: [],
         currentMilestone: 3,
-        completedPaths: [],
-        learningTime: 0
+        totalPoints: 0
     },
-
+    
     init: function() {
         console.log('📊 Initializing Progress Tracker...');
         
+        // Load saved progress
         this.loadProgress();
-        this.updateProgressUI();
-        this.initProgressAnimations();
-        this.initMilestoneTracking();
+        
+        // Initialize progress UI
+        this.initProgressUI();
         
         console.log('✅ Progress Tracker initialized');
     },
-
+    
     loadProgress: function() {
         const savedProgress = Utils.storage.get('digitalverse-progress');
         if (savedProgress) {
-            this.userProgress = { ...this.userProgress, ...savedProgress };
+            this.progress = { ...this.progress, ...savedProgress };
         }
     },
-
+    
     saveProgress: function() {
-        Utils.storage.set('digitalverse-progress', this.userProgress);
+        Utils.storage.set('digitalverse-progress', this.progress);
     },
-
-    updateProgressUI: function() {
-        // Update progress stats
-        this.updateProgressStats();
+    
+    initProgressUI: function() {
+        // Update progress bars and milestones
+        this.updateProgressDisplay();
         
-        // Update milestone indicators
-        this.updateMilestoneUI();
-        
+        // Add click handlers for milestones
+        this.initMilestoneInteractions();
+    },
+    
+    updateProgressDisplay: function() {
         // Update path progress
-        this.updatePathProgress();
-    },
-
-    updateProgressStats: function() {
-        const stats = document.querySelectorAll('.encouragement-stat .stat-value');
-        if (stats.length >= 2) {
-            stats[0].textContent = this.userProgress.conceptsMastered;
-            stats[1].textContent = this.userProgress.protocolsExplored;
-        }
-
-        // Update progress fill
         const progressFill = document.querySelector('.path-fill');
         if (progressFill) {
-            const progressPercent = ((this.userProgress.currentMilestone - 1) / 3) * 100;
+            const progressPercent = (this.progress.currentMilestone / 4) * 100;
             progressFill.style.width = `${progressPercent}%`;
         }
-    },
-
-    updateMilestoneUI: function() {
+        
+        // Update milestone states
         const milestones = document.querySelectorAll('.milestone');
         milestones.forEach((milestone, index) => {
             const milestoneNum = parseInt(milestone.getAttribute('data-milestone'));
             
-            milestone.classList.remove('active', 'current', 'completed');
+            milestone.classList.remove('active', 'current');
             
-            if (milestoneNum < this.userProgress.currentMilestone) {
-                milestone.classList.add('completed', 'active');
-            } else if (milestoneNum === this.userProgress.currentMilestone) {
-                milestone.classList.add('current', 'active');
+            if (milestoneNum < this.progress.currentMilestone) {
+                milestone.classList.add('active');
+            } else if (milestoneNum === this.progress.currentMilestone) {
+                milestone.classList.add('active', 'current');
             }
         });
+        
+        // Update encouragement stats
+        this.updateEncouragementStats();
     },
-
-    updatePathProgress: function() {
-        // Update learning path cards with progress
-        const pathCards = document.querySelectorAll('.protocol-card');
-        pathCards.forEach(card => {
-            const protocol = card.classList[1].replace('-card', '');
-            if (this.userProgress.completedPaths.includes(protocol)) {
-                card.classList.add('completed');
-            }
+    
+    updateEncouragementStats: function() {
+        const conceptsElement = document.querySelector('.encouragement-stat .stat-value:first-child');
+        const protocolsElement = document.querySelector('.encouragement-stat .stat-value:last-child');
+        
+        if (conceptsElement) {
+            conceptsElement.textContent = this.progress.completedModules.length;
+        }
+        
+        if (protocolsElement) {
+            protocolsElement.textContent = this.progress.completedProtocols.length;
+        }
+    },
+    
+    initMilestoneInteractions: function() {
+        const milestones = document.querySelectorAll('.milestone');
+        
+        milestones.forEach(milestone => {
+            milestone.addEventListener('click', () => {
+                const milestoneNum = parseInt(milestone.getAttribute('data-milestone'));
+                this.setCurrentMilestone(milestoneNum);
+            });
         });
     },
-
-    initProgressAnimations: function() {
-        // Animate progress bars when they come into view
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-                }
-            });
-        }, { threshold: 0.5 });
-
-        const progressElements = document.querySelectorAll('.path-fill, .milestone-marker');
-        progressElements.forEach(el => observer.observe(el));
-    },
-
-    initMilestoneTracking: function() {
-        // Track when user views important sections
-        const sections = document.querySelectorAll('section[id]');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    this.recordSectionView(entry.target.id);
-                }
-            });
-        }, { threshold: 0.3 });
-
-        sections.forEach(section => observer.observe(section));
-    },
-
-    recordSectionView: function(sectionId) {
-        // Map sections to concepts/protocols
-        const sectionMap = {
-            'bitcoin': 'bitcoin',
-            'ethereum': 'ethereum', 
-            'xrpl': 'xrpl',
-            'critical-thinking': 'mindset',
-            'pattern-recognition': 'verification'
-        };
-
-        if (sectionMap[sectionId] && !this.userProgress.completedPaths.includes(sectionMap[sectionId])) {
-            this.userProgress.completedPaths.push(sectionMap[sectionId]);
-            this.userProgress.conceptsMastered += 2;
+    
+    completeProtocol: function(protocol) {
+        if (!this.progress.completedProtocols.includes(protocol)) {
+            this.progress.completedProtocols.push(protocol);
+            this.progress.totalPoints += 100;
             this.saveProgress();
-            this.updateProgressUI();
+            this.updateProgressDisplay();
             
-            this.showAchievement(sectionMap[sectionId]);
+            this.dispatchProgressEvent('protocolCompleted', {
+                protocol: protocol,
+                points: 100
+            });
+            
+            return true;
         }
+        return false;
     },
-
-    showAchievement: function(achievement) {
-        const achievementMessages = {
-            'bitcoin': '🎉 Bitcoin Fundamentals Mastered!',
-            'ethereum': '🚀 Ethereum & Smart Contracts Explored!',
-            'xrpl': '💫 XRPL Payment Systems Understood!',
-            'mindset': '🛡️ Critical Thinking Shield Activated!',
-            'verification': '🔍 Verification Skills Developed!'
-        };
-
-        this.showNotification(achievementMessages[achievement] || '🎯 Progress Updated!');
-    },
-
-    showNotification: function(message) {
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = 'progress-notification';
-        notification.innerHTML = `
-            <div class="notification-content">
-                <span class="notification-icon">✨</span>
-                <span class="notification-text">${message}</span>
-            </div>
-        `;
-
-        // Add styles
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--ike-accent), #9400d3);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            box-shadow: 0 8px 32px rgba(0, 247, 255, 0.3);
-            z-index: 10000;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            font-weight: 600;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-        `;
-
-        document.body.appendChild(notification);
-
-        // Animate in
-        setTimeout(() => {
-            notification.style.transform = 'translateX(0)';
-        }, 100);
-
-        // Remove after delay
-        setTimeout(() => {
-            notification.style.transform = 'translateX(400px)';
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        }, 3000);
-    },
-
-    // Public methods for updating progress
-    completeConcept: function(conceptName) {
-        this.userProgress.conceptsMastered++;
-        this.saveProgress();
-        this.updateProgressUI();
-    },
-
-    completeProtocol: function(protocolName) {
-        if (!this.userProgress.completedPaths.includes(protocolName)) {
-            this.userProgress.completedPaths.push(protocolName);
-            this.userProgress.protocolsExplored++;
+    
+    completeModule: function(moduleId) {
+        if (!this.progress.completedModules.includes(moduleId)) {
+            this.progress.completedModules.push(moduleId);
+            this.progress.totalPoints += 50;
             this.saveProgress();
-            this.updateProgressUI();
+            this.updateProgressDisplay();
+            
+            this.dispatchProgressEvent('moduleCompleted', {
+                module: moduleId,
+                points: 50
+            });
+            
+            return true;
         }
+        return false;
     },
-
-    advanceMilestone: function() {
-        if (this.userProgress.currentMilestone < 4) {
-            this.userProgress.currentMilestone++;
+    
+    setCurrentMilestone: function(milestone) {
+        if (milestone >= 1 && milestone <= 4) {
+            this.progress.currentMilestone = milestone;
             this.saveProgress();
-            this.updateProgressUI();
-            this.showNotification('🌟 Milestone Reached! Continue your journey.');
+            this.updateProgressDisplay();
+            
+            this.dispatchProgressEvent('milestoneUpdated', {
+                milestone: milestone
+            });
         }
     },
-
-    // Get progress statistics
+    
     getProgressStats: function() {
-        return { ...this.userProgress };
+        return {
+            ...this.progress,
+            completionPercentage: Math.round((this.progress.completedModules.length / 12) * 100),
+            nextMilestone: this.progress.currentMilestone < 4 ? this.progress.currentMilestone + 1 : null
+        };
+    },
+    
+    showNotification: function(message) {
+        if (window.DigitalverseApp) {
+            DigitalverseApp.showNotification(message, 'success');
+        }
+    },
+    
+    dispatchProgressEvent: function(eventName, detail = {}) {
+        const event = new CustomEvent(eventName, {
+            detail: {
+                ...detail,
+                timestamp: Date.now(),
+                progress: this.getProgressStats()
+            }
+        });
+        document.dispatchEvent(event);
     }
 };
 
