@@ -1,4 +1,6 @@
 /* ========== DIGITALVERSE NAVIGATION - UNIFIED DESIGN ========== */
+
+/* ========== BASE NAVIGATION STYLES ========== */
 .main-nav {
   display: flex;
   justify-content: space-between;
@@ -31,6 +33,7 @@
   margin: 0 auto;
 }
 
+/* ========== BRAND STYLES ========== */
 .nav-brand {
   display: flex;
   align-items: center;
@@ -69,7 +72,9 @@
   transform: rotate(15deg) scale(1.1);
 }
 
-/* NAV LINKS - Desktop */
+/* ========== DESKTOP NAVIGATION ========== */
+
+/* Navigation Links */
 .nav-links {
   display: flex;
   align-items: center;
@@ -100,13 +105,13 @@
   white-space: nowrap;
 }
 
-/* AMP Home & Ikeverse link styling */
+/* AMP Home & Ikeverse Links */
 .nav-links a.nav-link {
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid var(--ike-border);
 }
 
-/* BUBBLE EFFECT */
+/* Bubble Effect */
 .nav-links a::before {
   content: '';
   position: absolute;
@@ -139,7 +144,7 @@
   border-color: var(--ike-accent);
 }
 
-/* ACTIVE STATE */
+/* Active State */
 .nav-links a.nav-active {
   background: linear-gradient(135deg, var(--ike-accent-glow), rgba(148, 0, 211, 0.15));
   color: var(--ike-accent);
@@ -156,6 +161,7 @@
   transform: scale(1);
 }
 
+/* ========== NAVIGATION ACTIONS ========== */
 .nav-actions {
   display: flex;
   align-items: center;
@@ -163,6 +169,7 @@
   flex-shrink: 0;
 }
 
+/* Theme Toggle */
 .theme-toggle {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--ike-border);
@@ -186,7 +193,7 @@
   transform: rotate(15deg) scale(1.1);
 }
 
-/* Profile button styling */
+/* Profile Button */
 .btn-profile {
   background: linear-gradient(135deg, #8b5cf6, #7c3aed);
   color: white;
@@ -208,9 +215,7 @@
   box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
 }
 
-/* ========== MOBILE STYLES ========== */
-
-/* Mobile Menu Toggle */
+/* ========== MOBILE MENU TOGGLE ========== */
 .menu-toggle {
   display: none;
   align-items: center;
@@ -251,100 +256,9 @@
   transform: scale(1.1);
 }
 
-/* Add these styles to your existing navigation.css */
+/* ========== MOBILE SIDEBAR ========== */
 
-/* Mobile navigation icons */
-@media (max-width: 768px) {
-  .nav-links a {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    text-align: left;
-    padding: 1.25rem 2rem;
-    font-size: 1.1rem;
-    border-radius: 50px;
-    margin: 0.5rem 0;
-    width: 100%;
-    max-width: 400px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  .nav-icon {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-  }
-
-  /* Specific icons for each navigation item */
-  .nav-links a[href="../index.html"] .nav-icon::before {
-    content: "🏠";
-  }
-
-  .nav-links a[href="../ikeverse.html"] .nav-icon::before {
-    content: "🌺";
-  }
-
-  .nav-links a[href="#home"] .nav-icon::before {
-    content: "⭐";
-  }
-
-  .nav-links a[href="#learn"] .nav-icon::before {
-    content: "📚";
-  }
-
-  .nav-links a[href="#about"] .nav-icon::before {
-    content: "ℹ️";
-  }
-
-  .nav-links a.nav-active .nav-icon {
-    color: var(--ike-accent);
-    transform: scale(1.1);
-  }
-
-  /* Profile button icon in mobile menu */
-  .mobile-nav-actions .btn-profile .nav-icon::before {
-    content: "👤";
-  }
-
-  /* Theme toggle icon in mobile menu */
-  .mobile-nav-actions .theme-toggle .nav-icon::before {
-    content: "🎨";
-  }
-}
-
-/* Enhanced mobile menu styling */
-@media (max-width: 768px) {
-  .nav-links.active {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 6rem 1.5rem 2rem;
-  }
-
-  .nav-links a:hover .nav-icon,
-  .nav-links a.nav-active .nav-icon {
-    animation: icon-bounce 0.6s ease;
-  }
-
-  @keyframes icon-bounce {
-    0%, 20%, 60%, 100% {
-      transform: translateY(0);
-    }
-    40% {
-      transform: translateY(-5px);
-    }
-    80% {
-      transform: translateY(-2px);
-    }
-  }
-}
-
-/* Mobile Sidebar */
+/* Sidebar Container */
 .mobile-sidebar {
   position: fixed;
   top: 0;
@@ -365,7 +279,7 @@
   left: 0;
 }
 
-/* Mobile Sidebar Header */
+/* Sidebar Header */
 .mobile-sidebar-header {
   display: flex;
   align-items: center;
@@ -407,7 +321,7 @@
   transform: rotate(90deg);
 }
 
-/* Mobile Sidebar Navigation */
+/* Sidebar Navigation */
 .mobile-sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -440,7 +354,7 @@
   width: 24px;
 }
 
-/* Mobile Sidebar Actions */
+/* Sidebar Actions */
 .mobile-sidebar-actions {
   display: flex;
   flex-direction: column;
@@ -478,7 +392,7 @@
   margin: 0;
 }
 
-/* Mobile Sidebar Overlay */
+/* Sidebar Overlay */
 .mobile-sidebar-overlay {
   position: fixed;
   top: 0;
@@ -498,7 +412,97 @@
   visibility: visible;
 }
 
-/* Responsive Design */
+/* ========== MOBILE NAVIGATION ICONS ========== */
+@media (max-width: 768px) {
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+    padding: 1.25rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    margin: 0.5rem 0;
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  /* Navigation Icons */
+  .nav-links a[href="../index.html"] .nav-icon::before {
+    content: "🏠";
+  }
+
+  .nav-links a[href="../ikeverse.html"] .nav-icon::before {
+    content: "🌺";
+  }
+
+  .nav-links a[href="#home"] .nav-icon::before {
+    content: "⭐";
+  }
+
+  .nav-links a[href="#learn"] .nav-icon::before {
+    content: "📚";
+  }
+
+  .nav-links a[href="#about"] .nav-icon::before {
+    content: "ℹ️";
+  }
+
+  .nav-links a.nav-active .nav-icon {
+    color: var(--ike-accent);
+    transform: scale(1.1);
+  }
+
+  /* Action Icons */
+  .mobile-nav-actions .btn-profile .nav-icon::before {
+    content: "👤";
+  }
+
+  .mobile-nav-actions .theme-toggle .nav-icon::before {
+    content: "🎨";
+  }
+}
+
+/* ========== ENHANCED MOBILE STYLING ========== */
+@media (max-width: 768px) {
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6rem 1.5rem 2rem;
+  }
+
+  .nav-links a:hover .nav-icon,
+  .nav-links a.nav-active .nav-icon {
+    animation: icon-bounce 0.6s ease;
+  }
+
+  @keyframes icon-bounce {
+    0%, 20%, 60%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-5px);
+    }
+    80% {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
 @media (max-width: 768px) {
   .main-nav {
     padding: 0.75rem 1rem;
@@ -508,7 +512,7 @@
     display: flex;
   }
   
-  /* Hide desktop nav links on mobile */
+  /* Hide desktop nav on mobile */
   .nav-links {
     display: none;
   }
@@ -555,7 +559,7 @@
   }
 }
 
-/* ANIMATIONS */
+/* ========== ANIMATIONS ========== */
 @keyframes bubblePulse {
   0%, 100% {
     box-shadow: 
@@ -569,6 +573,7 @@
   }
 }
 
+/* ========== UTILITY STYLES ========== */
 body.mobile-menu-open {
   overflow: hidden;
 }
