@@ -1,23 +1,6 @@
 /* ========== ALOHA IKEVERSE - MAIN CSS ========== */
 /* The Knowledge Universe with Aloha Spirit */
 
-/* CSS Variables */
-:root {
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  
-  --transition: all 0.3s ease;
-}
-
 /* Import all CSS files in correct order */
 @import url('base.css');
 @import url('layout.css');
@@ -26,13 +9,28 @@
 @import url('components/cards.css');
 @import url('components/forms.css');
 @import url('components/footer.css');
+@import url('components/team.css');
+@import url('components/contact.css');
 @import url('theme.css');
+@import url('modules.css');
+@import url('blockchain-history.css');
 
-/* Section Styles */
+/* Section Styles - All content sections we've created */
 @import url('sections/hero.css');
 @import url('sections/knowledge-path.css');
 @import url('sections/learning-paths.css');
 @import url('sections/verification-skills.css');
+@import url('sections/introduction.css');
+@import url('sections/features.css');
+@import url('sections/technology.css');
+@import url('sections/bitcoin.css');
+@import url('sections/xrpl.css');
+@import url('sections/ethereum.css');
+@import url('sections/adoption.css');
+@import url('sections/timeline.css');
+@import url('sections/future.css');
+@import url('sections/did-you-know.css');
+@import url('sections/roadmap.css');
 
 /* ========== ALOHA IKEVERSE BRAND ANIMATIONS ========== */
 @keyframes aloha-pulse {
@@ -61,64 +59,4 @@
 
 .ike-float {
   animation: ike-float 3s ease-in-out infinite;
-}
-
-/* Background Videos */
-#bg-videos {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
-}
-
-.bg-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translateX(-50%) translateY(-50%);
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.bg-video.active {
-  opacity: 0.3;
-}
-
-.bg-fallback {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--ike-bg);
-}
-
-/* Loading States */
-body:not(.loaded) #app {
-  opacity: 0;
-}
-
-body.loaded #app {
-  opacity: 1;
-  transition: opacity 0.5s ease;
-}
-
-/* Utility Classes */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }
