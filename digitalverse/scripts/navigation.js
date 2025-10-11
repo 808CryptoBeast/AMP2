@@ -1,31 +1,67 @@
 // Digitalverse Navigation System - Fixed Mobile Sidebar
 const Navigation = {
-    isMobileMenuOpen: false,
-
-    init: function() {
-        console.log('🌐 Initializing Digitalverse Navigation...');
-        
-        // Create mobile sidebar immediately
-        this.createMobileSidebar();
-        
-        // Initialize all navigation functionality
-        this.initMobileSidebar();
-        this.initScrollEffects();
-        this.initNavLinks();
-        this.initThemeToggle();
-        
-        console.log('✅ Navigation initialized successfully');
+    // ========== CONFIGURATION ==========
+    config: {
+        scrollThreshold: 100,
+        smoothScrollOffset: 80,
+        throttleDelay: 100,
+        sidebarTransition: 300
     },
 
+    // ========== STATE ==========
+    state: {
+        isMobileMenuOpen: false,
+        isInitialized: false,
+        scrollObserver: null,
+        eventListeners: []
+    },
+
+    // ========== SELECTORS ==========
+    selectors: {
+        mainNav: '.main-nav',
+        menuToggle: '.menu-toggle',
+        mobileSidebar: '.mobile-sidebar',
+        mobileOverlay: '.mobile-sidebar-overlay',
+        sidebarClose: '.mobile-sidebar-close',
+        navLinks: '.nav-links a, .mobile-sidebar-nav a',
+        themeToggles: '.theme-toggle',
+        sections: 'section[id]'
+    },
+
+    // ========== INITIALIZATION ==========
+    init: function() {
+        if (this.state.isInitialized) {
+            console.warn('⚠️ Navigation already initialized');
+            return;
+        }
+
+        console.log('🌐 Initializing Digitalverse Navigation...');
+        
+        try {
+            this.createMobileSidebar();
+            this.initMobileSidebar();
+            this.initScrollEffects();
+            this.initNavLinks();
+            this.initThemeToggle();
+            this.initResizeHandler();
+            
+            this.state.isInitialized = true;
+            console.log('✅ Navigation initialized successfully');
+        } catch (error) {
+            console.error('❌ Navigation initialization failed:', error);
+        }
+    },
+
+    // ========== MOBILE SIDEBAR CREATION ==========
     createMobileSidebar: function() {
-        // Only create if it doesn't exist
-        if (document.querySelector('.mobile-sidebar')) {
+        if (document.querySelector(this.selectors.mobileSidebar)) {
             console.log('📱 Mobile sidebar already exists');
             return;
         }
 
         const sidebarHTML = `
-            <div class="mobile-sidebar">
+            <div class="mobile-sidebar-overlay" aria-hidden="true"></div>
+            <div class="mobile-sidebar" role="dialog" aria-modal="true" aria-label="Main navigation">
                 <div class="mobile-sidebar-header">
                     <div class="mobile-sidebar-brand">
                         <div class="tiki-placeholder" style="width: 32px; height: 32px; border-radius: 50%; background: var(--ike-accent); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">A</div>
@@ -36,7 +72,7 @@ const Navigation = {
                     </button>
                 </div>
                 
-                <nav class="mobile-sidebar-nav">
+                <nav class="mobile-sidebar-nav" aria-label="Mobile navigation">
                     <a href="../index.html" class="nav-link">
                         <iconify-icon icon="fluent:home-24-filled"></iconify-icon>
                         <span>AMP Home</span>
@@ -76,94 +112,95 @@ const Navigation = {
         console.log('📱 Mobile sidebar created successfully');
     },
 
+    // ========== MOBILE SIDEBAR FUNCTIONALITY ==========
     initMobileSidebar: function() {
-        const menuToggle = document.querySelector('.menu-toggle');
-        const mobileSidebar = document.querySelector('.mobile-sidebar');
-        const sidebarClose = document.querySelector('.mobile-sidebar-close');
-        const overlay = document.querySelector('.mobile-sidebar-overlay');
+        const menuToggle = document.querySelector(this.selectors.menuToggle);
+        const mobileSidebar = document.querySelector(this.selectors.mobileSidebar);
+        const overlay = document.querySelector(this.selectors.mobileOverlay);
 
-        if (!menuToggle) {
-            console.error('❌ Menu toggle button not found');
-            return;
-        }
-
-        if (!mobileSidebar) {
-            console.error('❌ Mobile sidebar not found');
+        if (!menuToggle || !mobileSidebar || !overlay) {
+            console.warn('⚠️ Mobile sidebar elements not found');
             return;
         }
 
         console.log('🔧 Initializing mobile sidebar functionality');
 
-        // Menu toggle click handler
-        menuToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('🎯 Menu toggle clicked');
-            this.toggleMobileMenu();
-        });
+        // Menu toggle handler
+        this.addEventListener(menuToggle, 'click', (e) => this.handleMenuToggle(e));
 
-        // Sidebar close button
+        // Close button handler
+        const sidebarClose = document.querySelector(this.selectors.sidebarClose);
         if (sidebarClose) {
-            sidebarClose.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('🎯 Close button clicked');
-                this.closeMobileMenu();
-            });
-        } else {
-            console.error('❌ Sidebar close button not found');
+            this.addEventListener(sidebarClose, 'click', (e) => this.handleCloseButton(e));
         }
 
-        // Overlay click handler
-        if (overlay) {
-            overlay.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('🎯 Overlay clicked');
-                this.closeMobileMenu();
-            });
-        } else {
-            console.error('❌ Overlay not found');
+        // Overlay handler
+        this.addEventListener(overlay, 'click', (e) => this.handleOverlayClick(e));
+
+        // Escape key handler
+        this.addEventListener(document, 'keydown', (e) => this.handleEscapeKey(e));
+
+        // Navigation link handlers
+        this.initMobileNavLinks();
+    },
+
+    handleMenuToggle: function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🎯 Menu toggle clicked');
+        
+        const menuToggle = document.querySelector(this.selectors.menuToggle);
+        if (menuToggle) {
+            menuToggle.setAttribute('aria-expanded', 
+                !this.state.isMobileMenuOpen
+            );
         }
+        
+        this.toggleMobileMenu();
+    },
 
-        // Close on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isMobileMenuOpen) {
-                console.log('🎯 Escape key pressed');
-                this.closeMobileMenu();
-            }
-        });
+    handleCloseButton: function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🎯 Close button clicked');
+        this.closeMobileMenu();
+    },
 
-        // Handle mobile sidebar navigation clicks
+    handleOverlayClick: function(e) {
+        e.preventDefault();
+        console.log('🎯 Overlay clicked');
+        this.closeMobileMenu();
+    },
+
+    handleEscapeKey: function(e) {
+        if (e.key === 'Escape' && this.state.isMobileMenuOpen) {
+            console.log('🎯 Escape key pressed');
+            this.closeMobileMenu();
+        }
+    },
+
+    initMobileNavLinks: function() {
         const mobileNavLinks = document.querySelectorAll('.mobile-sidebar-nav a');
         mobileNavLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
+            this.addEventListener(link, 'click', (e) => {
                 console.log('🎯 Mobile nav link clicked');
                 this.closeMobileMenu();
             });
         });
     },
 
+    // ========== MOBILE MENU STATE MANAGEMENT ==========
     toggleMobileMenu: function() {
-        console.log('🔄 Toggling mobile menu, current state:', this.isMobileMenuOpen);
-        if (this.isMobileMenuOpen) {
-            this.closeMobileMenu();
-        } else {
-            this.openMobileMenu();
-        }
+        console.log('🔄 Toggling mobile menu, current state:', this.state.isMobileMenuOpen);
+        this.state.isMobileMenuOpen ? this.closeMobileMenu() : this.openMobileMenu();
     },
 
     openMobileMenu: function() {
-        const mobileSidebar = document.querySelector('.mobile-sidebar');
-        const overlay = document.querySelector('.mobile-sidebar-overlay');
-        const body = document.body;
+        const mobileSidebar = document.querySelector(this.selectors.mobileSidebar);
+        const overlay = document.querySelector(this.selectors.mobileOverlay);
 
-        if (!mobileSidebar) {
-            console.error('❌ Mobile sidebar not found for opening');
-            return;
-        }
-
-        if (!overlay) {
-            console.error('❌ Overlay not found for opening');
+        if (!mobileSidebar || !overlay) {
+            console.warn('⚠️ Mobile sidebar elements not found for opening');
             return;
         }
 
@@ -171,25 +208,20 @@ const Navigation = {
         
         mobileSidebar.classList.add('active');
         overlay.classList.add('active');
-        body.classList.add('mobile-menu-open');
-        this.isMobileMenuOpen = true;
-
-        // Disable background scrolling
+        document.body.classList.add('mobile-menu-open');
         document.body.style.overflow = 'hidden';
+        this.state.isMobileMenuOpen = true;
+
+        // Focus management for accessibility
+        this.focusFirstNavItem();
     },
 
     closeMobileMenu: function() {
-        const mobileSidebar = document.querySelector('.mobile-sidebar');
-        const overlay = document.querySelector('.mobile-sidebar-overlay');
-        const body = document.body;
+        const mobileSidebar = document.querySelector(this.selectors.mobileSidebar);
+        const overlay = document.querySelector(this.selectors.mobileOverlay);
 
-        if (!mobileSidebar) {
-            console.error('❌ Mobile sidebar not found for closing');
-            return;
-        }
-
-        if (!overlay) {
-            console.error('❌ Overlay not found for closing');
+        if (!mobileSidebar || !overlay) {
+            console.warn('⚠️ Mobile sidebar elements not found for closing');
             return;
         }
 
@@ -197,68 +229,55 @@ const Navigation = {
         
         mobileSidebar.classList.remove('active');
         overlay.classList.remove('active');
-        body.classList.remove('mobile-menu-open');
-        this.isMobileMenuOpen = false;
-
-        // Re-enable background scrolling
+        document.body.classList.remove('mobile-menu-open');
         document.body.style.overflow = '';
+        this.state.isMobileMenuOpen = false;
+
+        // Return focus to menu toggle
+        this.returnFocusToToggle();
     },
 
+    focusFirstNavItem: function() {
+        const firstNavItem = document.querySelector('.mobile-sidebar-nav a');
+        if (firstNavItem) {
+            setTimeout(() => firstNavItem.focus(), this.config.sidebarTransition);
+        }
+    },
+
+    returnFocusToToggle: function() {
+        const menuToggle = document.querySelector(this.selectors.menuToggle);
+        if (menuToggle) {
+            setTimeout(() => menuToggle.focus(), this.config.sidebarTransition);
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+    },
+
+    // ========== SCROLL EFFECTS ==========
     initScrollEffects: function() {
-        const nav = document.querySelector('.main-nav');
+        const nav = document.querySelector(this.selectors.mainNav);
         if (!nav) {
             console.log('⚠️ Main nav not found for scroll effects');
             return;
         }
 
         const handleScroll = () => {
+            const scrollThreshold = this.config.scrollThreshold;
             const currentScrollY = window.scrollY;
-            const scrollThreshold = 100;
 
-            if (currentScrollY > scrollThreshold) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
+            nav.classList.toggle('scrolled', currentScrollY > scrollThreshold);
         };
 
-        // Throttle the scroll handler
-        const throttledScroll = this.throttle(handleScroll, 100);
-        window.addEventListener('scroll', throttledScroll);
+        const throttledScroll = this.throttle(handleScroll, this.config.throttleDelay);
+        this.addEventListener(window, 'scroll', throttledScroll, { passive: true });
     },
 
-    // Simple throttle function
-    throttle: function(func, limit) {
-        let inThrottle;
-        return function() {
-            const args = arguments;
-            const context = this;
-            if (!inThrottle) {
-                func.apply(context, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        }
-    },
-
+    // ========== NAVIGATION LINKS ==========
     initNavLinks: function() {
-        const navLinks = document.querySelectorAll('.nav-links a, .mobile-sidebar-nav a');
+        const navLinks = document.querySelectorAll(this.selectors.navLinks);
         
         navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                
-                // Handle internal links with smooth scroll
-                if (href && href.startsWith('#')) {
-                    e.preventDefault();
-                    const targetId = href.substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    
-                    if (targetElement) {
-                        this.smoothScroll(href, 80);
-                        this.setActiveNavLink(link);
-                    }
-                }
+            this.addEventListener(link, 'click', (e) => {
+                this.handleNavLinkClick(e, link);
             });
         });
 
@@ -266,30 +285,30 @@ const Navigation = {
         this.initScrollSpy();
     },
 
-    // Simple smooth scroll function
-    smoothScroll: function(target, offset = 0) {
-        const element = document.querySelector(target);
-        if (element) {
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
+    handleNavLinkClick: function(e, link) {
+        const href = link.getAttribute('href');
+        
+        if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                this.smoothScrollToElement(targetElement);
+                this.setActiveNavLink(link);
+            }
         }
     },
 
+    // ========== SCROLL SPY ==========
     initScrollSpy: function() {
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-links a[href^="#"], .mobile-sidebar-nav a[href^="#"]');
-        
+        const sections = document.querySelectorAll(this.selectors.sections);
         if (sections.length === 0) {
             console.log('⚠️ No sections found for scroll spy');
             return;
         }
 
-        const observer = new IntersectionObserver((entries) => {
+        this.state.scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
@@ -305,12 +324,21 @@ const Navigation = {
             threshold: 0.1
         });
 
-        sections.forEach(section => observer.observe(section));
+        sections.forEach(section => this.state.scrollObserver.observe(section));
     },
 
+    // ========== ACTIVE NAVIGATION MANAGEMENT ==========
     setActiveNavLink: function(activeLink) {
-        const navLinks = document.querySelectorAll('.nav-links a, .mobile-sidebar-nav a');
-        navLinks.forEach(link => link.classList.remove('nav-active'));
+        if (!activeLink) return;
+
+        // Get the navigation container context
+        const container = activeLink.closest('.nav-links, .mobile-sidebar-nav');
+        const allNavLinks = document.querySelectorAll(this.selectors.navLinks);
+        
+        // Remove active class from all links
+        allNavLinks.forEach(link => link.classList.remove('nav-active'));
+        
+        // Add active class to clicked link
         activeLink.classList.add('nav-active');
     },
 
@@ -322,25 +350,130 @@ const Navigation = {
         }
     },
 
+    // ========== THEME TOGGLE ==========
     initThemeToggle: function() {
-        const themeToggles = document.querySelectorAll('.theme-toggle');
+        const themeToggles = document.querySelectorAll(this.selectors.themeToggles);
         themeToggles.forEach(toggle => {
-            toggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                console.log('🎨 Theme toggle clicked');
-                // This will be handled by your theme manager
-                if (window.ThemeManager) {
-                    window.ThemeManager.cycleTheme();
-                }
+            this.addEventListener(toggle, 'click', (e) => {
+                this.handleThemeToggle(e);
             });
         });
+    },
+
+    handleThemeToggle: function(e) {
+        e.stopPropagation();
+        console.log('🎨 Theme toggle clicked');
+        
+        if (window.ThemeManager && typeof window.ThemeManager.cycleTheme === 'function') {
+            window.ThemeManager.cycleTheme();
+        } else {
+            console.warn('ThemeManager not available or cycleTheme method missing');
+            // Fallback theme toggle logic could go here
+        }
+    },
+
+    // ========== RESIZE HANDLER ==========
+    initResizeHandler: function() {
+        const handleResize = this.throttle(() => {
+            if (window.innerWidth > 768 && this.state.isMobileMenuOpen) {
+                this.closeMobileMenu();
+            }
+        }, 250);
+
+        this.addEventListener(window, 'resize', handleResize);
+    },
+
+    // ========== UTILITY FUNCTIONS ==========
+    smoothScrollToElement: function(element, offset = this.config.smoothScrollOffset) {
+        if (!element) return;
+
+        const navHeight = this.getNavHeight();
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - (offset + navHeight);
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    },
+
+    getNavHeight: function() {
+        const nav = document.querySelector(this.selectors.mainNav);
+        return nav ? nav.offsetHeight : 0;
+    },
+
+    throttle: function(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }
+    },
+
+    addEventListener: function(element, event, handler, options) {
+        element.addEventListener(event, handler, options);
+        this.state.eventListeners.push({ element, event, handler });
+    },
+
+    // ========== PUBLIC METHODS ==========
+    navigateTo: function(sectionId) {
+        const targetElement = document.getElementById(sectionId);
+        if (targetElement) {
+            this.smoothScrollToElement(targetElement);
+            const correspondingLink = document.querySelector(`a[href="#${sectionId}"]`);
+            if (correspondingLink) {
+                this.setActiveNavLink(correspondingLink);
+            }
+        }
+    },
+
+    // ========== CLEANUP ==========
+    destroy: function() {
+        console.log('🧹 Cleaning up navigation...');
+        
+        // Remove event listeners
+        this.state.eventListeners.forEach(({ element, event, handler }) => {
+            element.removeEventListener(event, handler);
+        });
+        this.state.eventListeners = [];
+
+        // Disconnect observers
+        if (this.state.scrollObserver) {
+            this.state.scrollObserver.disconnect();
+        }
+
+        // Remove dynamically created elements
+        const mobileSidebar = document.querySelector(this.selectors.mobileSidebar);
+        const overlay = document.querySelector(this.selectors.mobileOverlay);
+        
+        if (mobileSidebar) mobileSidebar.remove();
+        if (overlay) overlay.remove();
+
+        // Reset state
+        this.state.isMobileMenuOpen = false;
+        this.state.isInitialized = false;
+        this.state.scrollObserver = null;
+
+        console.log('✅ Navigation cleanup completed');
     }
 };
 
-// Initialize when DOM is loaded
+// ========== INITIALIZATION ==========
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 DOM loaded, initializing navigation...');
     Navigation.init();
+});
+
+// Handle page transitions or turbolinks
+document.addEventListener('turbolinks:before-visit', function() {
+    if (window.Navigation) {
+        Navigation.destroy();
+    }
 });
 
 // Make available globally
