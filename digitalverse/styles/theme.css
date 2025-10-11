@@ -1,4 +1,7 @@
 /* ========== DIGITALVERSE THEME SYSTEM ========== */
+.theme-transition {
+  transition: background-color 600ms ease, color 600ms ease, box-shadow 600ms ease, border-color 600ms ease;
+}
 
 /* World Create Theme (Default) */
 [data-theme="worldcreate"] {
@@ -45,6 +48,49 @@
   --ike-success: #6366f1;
 }
 
+/* Protocol-specific themes */
+[data-theme="bitcoin"] {
+  --ike-bg: linear-gradient(135deg, #1f1a16 0%, #3e2723 50%, #5d4037 100%);
+  --ike-nav: rgba(31, 26, 22, 0.95);
+  --ike-container: rgba(62, 39, 35, 0.85);
+  --ike-card: rgba(93, 64, 55, 0.9);
+  --ike-text: #fef3c7;
+  --ike-text-secondary: #fde68a;
+  --ike-accent: #f59e0b;
+  --ike-accent-glow: rgba(245, 158, 11, 0.3);
+  --ike-border: rgba(245, 158, 11, 0.3);
+  --ike-shadow: rgba(31, 26, 22, 0.5);
+  --ike-success: #d97706;
+}
+
+[data-theme="ethereum"] {
+  --ike-bg: linear-gradient(135deg, #1e1b2e 0%, #2d2a50 50%, #3c3770 100%);
+  --ike-nav: rgba(30, 27, 46, 0.95);
+  --ike-container: rgba(45, 42, 80, 0.85);
+  --ike-card: rgba(60, 55, 112, 0.9);
+  --ike-text: #e0e7ff;
+  --ike-text-secondary: #c7d2fe;
+  --ike-accent: #8b5cf6;
+  --ike-accent-glow: rgba(139, 92, 246, 0.3);
+  --ike-border: rgba(139, 92, 246, 0.3);
+  --ike-shadow: rgba(30, 27, 46, 0.5);
+  --ike-success: #7c3aed;
+}
+
+[data-theme="xrpl"] {
+  --ike-bg: linear-gradient(135deg, #001f3f 0%, #003366 50%, #00478a 100%);
+  --ike-nav: rgba(0, 31, 63, 0.95);
+  --ike-container: rgba(0, 51, 102, 0.85);
+  --ike-card: rgba(0, 71, 138, 0.9);
+  --ike-text: #e0f2fe;
+  --ike-text-secondary: #bae6fd;
+  --ike-accent: #00a3ff;
+  --ike-accent-glow: rgba(0, 163, 255, 0.3);
+  --ike-border: rgba(0, 163, 255, 0.3);
+  --ike-shadow: rgba(0, 31, 63, 0.5);
+  --ike-success: #007bff;
+}
+
 /* Global theme application */
 * {
   transition: background-color 0.5s ease, 
@@ -59,10 +105,4 @@ body {
   min-height: 100vh;
   margin: 0;
   font-family: 'Inter', sans-serif;
-  line-height: 1.6;
-}
-
-/* Smooth transitions for theme changes */
-.theme-transition {
-  transition: all 0.5s ease;
 }
