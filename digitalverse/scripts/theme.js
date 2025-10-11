@@ -1,128 +1,94 @@
-// Digitalverse Theme Management
+// Digitalverse Theme Management System
 const ThemeManager = {
-    themes: ['worldcreate', 'cosmic', 'starry'],
     currentTheme: 'worldcreate',
-
+    themes: ['worldcreate', 'cosmic', 'starry'],
+    
     init: function() {
         console.log('🎨 Initializing Theme Manager...');
         
-        // Load saved theme or default to worldcreate
-        const savedTheme = Utils.storage.get('digitalverse-theme') || 'worldcreate';
-        this.switchTheme(savedTheme, false);
+        // Load saved theme or use default
+        const savedTheme = Utils.storage.get('digitalverse-theme');
+        if (savedTheme && this.themes.includes(savedTheme)) {
+            this.currentTheme = savedTheme;
+        }
         
-        // Initialize theme toggle button
-        this.initThemeToggle();
+        // Apply initial theme
+        this.applyTheme(this.currentTheme);
         
-        // Initialize background videos
-        this.initBackgroundVideos();
+        // Initialize theme toggle buttons
+        this.initThemeToggles();
         
         console.log('✅ Theme Manager initialized');
     },
-
-    initThemeToggle: function() {
-        const themeToggle = document.querySelector('.theme-toggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
+    
+    initThemeToggles: function() {
+        const themeToggles = document.querySelectorAll('.theme-toggle');
+        
+        themeToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
                 this.cycleTheme();
             });
-        }
-    },
-
-    initBackgroundVideos: function() {
-        const videos = document.querySelectorAll('.bg-video');
-        videos.forEach(video => {
-            // Preload videos when they might be needed soon
-            if (video.getAttribute('data-theme') === this.currentTheme) {
-                video.setAttribute('preload', 'auto');
-                video.classList.add('active');
-            }
         });
     },
-
-    switchTheme: function(themeName, animate = true) {
-        if (!this.themes.includes(themeName)) {
-            console.warn(`Theme ${themeName} not found`);
-            return;
-        }
-
-        // Update current theme
-        this.currentTheme = themeName;
-        
-        // Update HTML attribute
-        Utils.setTheme(themeName);
-        
-        // Save to localStorage
-        Utils.storage.set('digitalverse-theme', themeName);
-        
-        // Update background videos
-        this.updateBackgroundVideos();
-        
-        // Update theme toggle button
-        this.updateThemeToggle();
-        
-        // Dispatch theme change event
-        this.dispatchThemeChange(themeName, animate);
-        
-        console.log(`🎨 Switched to ${themeName} theme`);
-    },
-
+    
     cycleTheme: function() {
         const currentIndex = this.themes.indexOf(this.currentTheme);
         const nextIndex = (currentIndex + 1) % this.themes.length;
         const nextTheme = this.themes[nextIndex];
         
-        this.switchTheme(nextTheme, true);
+        this.setTheme(nextTheme);
     },
-
-    updateBackgroundVideos: function() {
-        const videos = document.querySelectorAll('.bg-video');
-        videos.forEach(video => {
-            if (video.getAttribute('data-theme') === this.currentTheme) {
-                video.classList.add('active');
-                // Ensure video is playing
-                if (video.paused) {
-                    video.play().catch(e => console.log('Video play prevented:', e));
-                }
-            } else {
-                video.classList.remove('active');
-            }
+    
+    setTheme: function(theme) {
+        if (!this.themes.includes(theme)) {
+            console.warn(`Theme "${theme}" not found. Using default.`);
+            theme = 'worldcreate';
+        }
+        
+        // Remove previous theme classes
+        this.themes.forEach(t => {
+            document.documentElement.classList.remove(`theme-${t}`);
         });
+        
+        // Add new theme class
+        document.documentElement.classList.add(`theme-${theme}`);
+        document.documentElement.setAttribute('data-theme', theme);
+        
+        // Update current theme
+        this.currentTheme = theme;
+        
+        // Save to localStorage
+        Utils.storage.set('digitalverse-theme', theme);
+        
+        // Dispatch theme change event
+        this.dispatchThemeEvent('themeChange', {
+            theme: theme,
+            previousTheme: this.previousTheme
+        });
+        
+        this.previousTheme = theme;
     },
-
-    updateThemeToggle: function() {
-        const themeToggle = document.querySelector('.theme-toggle');
-        if (!themeToggle) return;
-
-        // Update emoji based on current theme
-        const themeEmojis = {
-            'worldcreate': '🌍',
-            'cosmic': '🌌',
-            'starry': '✨'
-        };
-
-        themeToggle.textContent = themeEmojis[this.currentTheme] || '🎨';
+    
+    applyTheme: function(theme) {
+        this.setTheme(theme);
     },
-
-    dispatchThemeChange: function(themeName, animate) {
-        const event = new CustomEvent('themeChange', {
+    
+    getCurrentTheme: function() {
+        return this.currentTheme;
+    },
+    
+    getAvailableThemes: function() {
+        return [...this.themes];
+    },
+    
+    dispatchThemeEvent: function(eventName, detail = {}) {
+        const event = new CustomEvent(eventName, {
             detail: {
-                theme: themeName,
-                animate: animate,
+                ...detail,
                 timestamp: Date.now()
             }
         });
         document.dispatchEvent(event);
-    },
-
-    // Get available themes
-    getThemes: function() {
-        return [...this.themes];
-    },
-
-    // Set custom theme (for future expansion)
-    setCustomTheme: function(themeConfig) {
-        console.log('Setting custom theme:', themeConfig);
-        // Implementation for custom themes would go here
     }
 };
 
