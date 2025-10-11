@@ -71,7 +71,7 @@ const Utils = {
     storage: {
         set: function(key, value) {
             try {
-                localStorage.setItem(key, JSON.stringify(value));
+                localStorage.setItem(key, value);
             } catch (e) {
                 console.warn('Local storage not available');
             }
@@ -79,7 +79,7 @@ const Utils = {
 
         get: function(key) {
             try {
-                return JSON.parse(localStorage.getItem(key));
+                return localStorage.getItem(key);
             } catch (e) {
                 return null;
             }
@@ -108,52 +108,8 @@ const Utils = {
             element.removeAttribute('data-loading');
             element.disabled = false;
         }
-    },
-
-    // Generate random ID
-    generateId: function(length = 8) {
-        return Math.random().toString(36).substring(2, 2 + length);
-    },
-
-    // Copy text to clipboard
-    copyToClipboard: function(text) {
-        return new Promise((resolve, reject) => {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text).then(resolve).catch(reject);
-            } else {
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                textArea.style.position = 'fixed';
-                textArea.style.opacity = '0';
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    resolve();
-                } catch (err) {
-                    reject(err);
-                }
-                document.body.removeChild(textArea);
-            }
-        });
-    },
-
-    // Check for reduced motion preference
-    prefersReducedMotion: function() {
-        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    },
-
-    // Check for backdrop filter support
-    supportsBackdropFilter: function() {
-        return CSS.supports('backdrop-filter', 'blur(10px)') || 
-               CSS.supports('-webkit-backdrop-filter', 'blur(10px)');
     }
 };
-
-// Initialize utils when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔧 Digitalverse Utils initialized');
-});
 
 // Make utils available globally
 window.Utils = Utils;
