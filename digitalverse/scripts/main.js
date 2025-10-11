@@ -31,15 +31,20 @@ const DigitalverseApp = {
 
     systemChecks: function() {
         // Check for required features
-        if (!Utils.supportsBackdropFilter()) {
+        if (!this.supportsBackdropFilter()) {
             console.warn('Backdrop filter not supported, using fallback');
             document.documentElement.classList.add('no-backdrop-filter');
         }
 
         // Check for reduced motion preference
-        if (Utils.prefersReducedMotion()) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             document.documentElement.classList.add('reduced-motion');
         }
+    },
+
+    supportsBackdropFilter: function() {
+        return CSS.supports('backdrop-filter', 'blur(10px)') || 
+               CSS.supports('-webkit-backdrop-filter', 'blur(10px)');
     },
 
     showLoadingAnimation: function() {
@@ -115,11 +120,6 @@ const DigitalverseApp = {
         document.addEventListener('mobileMenuClose', () => {
             this.onMobileMenuToggle(false);
         });
-
-        // Progress events
-        document.addEventListener('progressUpdate', (e) => {
-            this.onProgressUpdate(e.detail);
-        });
     },
 
     onThemeChange: function(themeDetail) {
@@ -137,11 +137,6 @@ const DigitalverseApp = {
             // Re-enable scrolling
             document.body.style.overflow = '';
         }
-    },
-
-    onProgressUpdate: function(progressDetail) {
-        // Handle progress updates from other components
-        console.log('Progress updated:', progressDetail);
     },
 
     updateThemeSpecificUI: function(theme) {
@@ -165,29 +160,34 @@ const DigitalverseApp = {
                 const card = e.target.closest('.protocol-card');
                 const protocol = card.classList[1].replace('-card', '');
                 
-                this.startLearningPath(protocol);
+                this.startLearningPath(protocol, e.target);
             });
         });
     },
 
-    startLearningPath: function(protocol) {
+    startLearningPath: function(protocol, button) {
         console.log(`Starting ${protocol} learning path`);
         
         // Show loading state
-        Utils.setLoading(event.target, true);
+        this.setLoading(button, true);
         
-        // Simulate path start (in real app, this would navigate to learning module)
+        // Simulate path start
         setTimeout(() => {
-            Utils.setLoading(event.target, false);
-            
-            // Track progress
-            if (window.ProgressTracker) {
-                ProgressTracker.completeProtocol(protocol);
-            }
+            this.setLoading(button, false);
             
             // Show success message
             this.showPathStartedMessage(protocol);
         }, 1000);
+    },
+
+    setLoading: function(element, isLoading) {
+        if (isLoading) {
+            element.setAttribute('data-loading', 'true');
+            element.disabled = true;
+        } else {
+            element.removeAttribute('data-loading');
+            element.disabled = false;
+        }
     },
 
     showPathStartedMessage: function(protocol) {
@@ -199,6 +199,48 @@ const DigitalverseApp = {
         
         const message = `🚀 Starting ${protocolNames[protocol]} learning path!`;
         this.showNotification(message);
+    },
+
+    showNotification: function(message) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = 'digitalverse-notification';
+        notification.textContent = message;
+        
+        // Style the notification
+        notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--ike-nav);
+            color: var(--ike-text);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--ike-border);
+            backdrop-filter: blur(20px);
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+            box-shadow: 0 8px 32px var(--ike-shadow);
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
     },
 
     initInteractiveElements: function() {
@@ -285,30 +327,6 @@ const DigitalverseApp = {
         animatedElements.forEach(el => observer.observe(el));
     },
 
-    // Notification system
-    showNotification: function(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `digitalverse-notification notification-${type}`;
-        notification.textContent = message;
-        
-        document.body.appendChild(notification);
-        
-        // Animate in
-        setTimeout(() => {
-            notification.classList.add('show');
-        }, 100);
-        
-        // Remove after delay
-        setTimeout(() => {
-            notification.classList.remove('show');
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        }, 3000);
-    },
-
     dispatchAppEvent: function(eventName, detail = {}) {
         const event = new CustomEvent(eventName, {
             detail: {
@@ -325,14 +343,8 @@ const DigitalverseApp = {
         return {
             version: '1.0.0',
             name: 'Digitalverse',
-            theme: window.ThemeManager ? ThemeManager.currentTheme : 'unknown',
-            progress: window.ProgressTracker ? ProgressTracker.getProgressStats() : null
+            theme: ThemeManager ? ThemeManager.currentTheme : 'unknown'
         };
-    },
-
-    // Utility methods for other components
-    refreshUI: function() {
-        this.dispatchAppEvent('appRefresh');
     }
 };
 
@@ -343,3 +355,69 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Make app available globally
 window.DigitalverseApp = DigitalverseApp;
+
+// Add some basic CSS for dynamic elements
+const dynamicStyles = `
+    .digitalverse-tooltip {
+        position: fixed;
+        background: var(--ike-nav);
+        color: var(--ike-text);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        z-index: 10000;
+        border: 1px solid var(--ike-border);
+        backdrop-filter: blur(20px);
+        pointer-events: none;
+        transform: translateY(-100%);
+        white-space: nowrap;
+        box-shadow: 0 4px 20px var(--ike-shadow);
+    }
+    
+    .digitalverse-notification {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: var(--ike-nav);
+        color: var(--ike-text);
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--ike-border);
+        backdrop-filter: blur(20px);
+        z-index: 10000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        max-width: 300px;
+        box-shadow: 0 8px 32px var(--ike-shadow);
+    }
+    
+    .card-hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease;
+    }
+    
+    .animate-in {
+        animation: fadeInUp 0.6s ease;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    [data-loading="true"] {
+        opacity: 0.7;
+        pointer-events: none;
+    }
+`;
+
+// Inject dynamic styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = dynamicStyles;
+document.head.appendChild(styleSheet);
