@@ -31,13 +31,13 @@ const DigitalverseApp = {
 
     systemChecks: function() {
         // Check for required features
-        if (!CSS.supports('backdrop-filter', 'blur(10px)')) {
+        if (!Utils.supportsBackdropFilter()) {
             console.warn('Backdrop filter not supported, using fallback');
             document.documentElement.classList.add('no-backdrop-filter');
         }
 
         // Check for reduced motion preference
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        if (Utils.prefersReducedMotion()) {
             document.documentElement.classList.add('reduced-motion');
         }
     },
@@ -198,9 +198,7 @@ const DigitalverseApp = {
         };
         
         const message = `🚀 Starting ${protocolNames[protocol]} learning path!`;
-        if (window.ProgressTracker) {
-            ProgressTracker.showNotification(message);
-        }
+        this.showNotification(message);
     },
 
     initInteractiveElements: function() {
@@ -287,6 +285,30 @@ const DigitalverseApp = {
         animatedElements.forEach(el => observer.observe(el));
     },
 
+    // Notification system
+    showNotification: function(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `digitalverse-notification notification-${type}`;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        // Remove after delay
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    },
+
     dispatchAppEvent: function(eventName, detail = {}) {
         const event = new CustomEvent(eventName, {
             detail: {
@@ -303,9 +325,14 @@ const DigitalverseApp = {
         return {
             version: '1.0.0',
             name: 'Digitalverse',
-            theme: ThemeManager ? ThemeManager.currentTheme : 'unknown',
-            progress: ProgressTracker ? ProgressTracker.getProgressStats() : null
+            theme: window.ThemeManager ? ThemeManager.currentTheme : 'unknown',
+            progress: window.ProgressTracker ? ProgressTracker.getProgressStats() : null
         };
+    },
+
+    // Utility methods for other components
+    refreshUI: function() {
+        this.dispatchAppEvent('appRefresh');
     }
 };
 
@@ -316,56 +343,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Make app available globally
 window.DigitalverseApp = DigitalverseApp;
-
-// Add some basic CSS for dynamic elements
-const dynamicStyles = `
-    .digitalverse-tooltip {
-        position: fixed;
-        background: rgba(15, 23, 42, 0.95);
-        color: var(--ike-text);
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        font-size: 0.875rem;
-        z-index: 10000;
-        border: 1px solid rgba(255,255,255,0.1);
-        backdrop-filter: blur(20px);
-        pointer-events: none;
-        transform: translateY(-100%);
-        white-space: nowrap;
-    }
-    
-    .card-hover {
-        transform: translateY(-5px);
-        transition: transform 0.3s ease;
-    }
-    
-    .animate-in {
-        animation: fadeInUp 0.6s ease;
-    }
-    
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    body.loaded #app {
-        opacity: 1;
-        transition: opacity 0.5s ease;
-    }
-    
-    [data-loading="true"] {
-        opacity: 0.7;
-        pointer-events: none;
-    }
-`;
-
-// Inject dynamic styles
-const styleSheet = document.createElement('style');
-styleSheet.textContent = dynamicStyles;
-document.head.appendChild(styleSheet);
