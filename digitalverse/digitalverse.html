@@ -9,7 +9,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- CSS - Using our organized structure -->
+  <!-- CSS -->
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
@@ -28,68 +28,37 @@
   </div>
 
   <div id="app">
-<!-- Navigation Component -->
-<nav class="main-nav">
-  <div class="nav-container">
-    <div class="nav-brand">
-      <a href="#home" class="logo">Digitalverse</a>
-    </div>
-    
-    <button class="menu-toggle" aria-label="Toggle menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    
-    <div class="nav-links">
-      <a href="../index.html" class="nav-link">
-        <span class="nav-icon"></span>
-        <span class="nav-text">AMP Home</span>
-      </a>
-      <a href="../ikeverse.html" class="nav-link">
-        <span class="nav-icon"></span>
-        <span class="nav-text">Ikeverse</span>
-      </a>
-      <a href="#home" class="nav-active">
-        <span class="nav-icon"></span>
-        <span class="nav-text">Home</span>
-      </a>
-      <a href="#learn">
-        <span class="nav-icon"></span>
-        <span class="nav-text">Learn</span>
-      </a>
-      <a href="#about">
-        <span class="nav-icon"></span>
-        <span class="nav-text">About</span>
-      </a>
-      
-      <!-- Mobile-only actions -->
-      <div class="mobile-nav-actions">
-        <button class="theme-toggle" aria-label="Change theme">
-          <span class="nav-icon"></span>
-          <span>Change Theme</span>
+    <!-- Navigation Component -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <a href="#home" class="logo">Digitalverse</a>
+        </div>
+        
+        <button class="menu-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-        <a href="../profile.html" class="btn btn-profile">
-          <span class="nav-icon"></span>
-          <span>My Profile</span>
-        </a>
+        
+        <div class="nav-links">
+          <a href="../index.html" class="nav-link">AMP Home</a>
+          <a href="../ikeverse.html" class="nav-link">Ikeverse</a>
+          <a href="#home" class="nav-active">Home</a>
+          <a href="#learn">Learn</a>
+          <a href="#about">About</a>
+        </div>
+        
+        <div class="nav-actions">
+          <button class="theme-toggle" aria-label="Change theme">
+            🎨
+          </button>
+          <a href="../profile.html" class="btn btn-profile">
+            Profile
+          </a>
+        </div>
       </div>
-    </div>
-    
-    <div class="nav-actions">
-      <button class="theme-toggle" aria-label="Change theme">
-        🎨
-      </button>
-      <a href="../profile.html" class="btn btn-profile">
-        <iconify-icon icon="fluent:person-24-filled"></iconify-icon>
-        Profile
-      </a>
-    </div>
-  </div>
-</nav>
-
-<!-- Mobile Sidebar (will be created by JavaScript) -->
-<div class="mobile-sidebar-overlay"></div>
+    </nav>
 
     <!-- Main Content -->
     <main class="container">
@@ -125,6 +94,7 @@
         </div>
       </section>
 
+      <!-- Rest of your sections remain the same -->
       <!-- Knowledge Path -->
       <section class="section-spacing">
         <div class="knowledge-path-header">
@@ -502,7 +472,6 @@
   <script src="scripts/utils.js"></script>
   <script src="scripts/theme.js"></script>
   <script src="scripts/navigation.js"></script>
-  <script src="scripts/progress.js"></script>
   <script src="scripts/main.js"></script>
 
   <!-- Simple initialization -->
@@ -519,11 +488,6 @@
       // Initialize navigation
       if (typeof window.Navigation !== 'undefined') {
         window.Navigation.init();
-      }
-      
-      // Initialize progress tracking
-      if (typeof window.ProgressTracker !== 'undefined') {
-        window.ProgressTracker.init();
       }
     });
   </script>
