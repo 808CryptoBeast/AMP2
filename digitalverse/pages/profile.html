@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="worldcreate">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Universal Profile - Digitalverse & Ikeverse</title>
+  <meta name="description" content="Your unified profile connecting Ikeverse lifestyle and Digitalverse knowledge">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="/digitalverse/styles/profile/profile.css">
+</head>
+<body>
+  <!-- Background Customization System -->
+  <div id="profile-bg" class="profile-background active" data-bg-theme="worldcreate">
+    <div class="bg-overlay"></div>
+  </div>
+
+  <div id="app">
+    <!-- Navigation -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <a href="../index.html" class="logo">Digitalverse</a>
+        </div>
+        
+        <button class="menu-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <div class="nav-links">
+          <a href="../index.html" class="nav-link">AMP Home</a>
+          <a href="../ikeverse.html" class="nav-link">Ikeverse</a>
+          <a href="../digitalverse.html" class="nav-link">Digitalverse</a>
+          <a href="#bridge" class="nav-link">Bridge View</a>
+          <a href="#customize" class="nav-link">Customize</a>
+        </div>
+        
+        <div class="nav-actions">
+          <button class="theme-toggle" aria-label="Change theme">
+            🎨
+          </button>
+          <a href="profile.html" class="btn btn-profile nav-active">
+            <iconify-icon icon="fluent:person-24-filled"></iconify-icon>
+            Universal Profile
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+      <!-- Universal Profile Header -->
+      <section class="profile-header section-spacing">
+        <div class="universal-badge">🌉 Universal Profile</div>
+        
+        <div class="profile-avatar-section">
+          <div class="avatar-container">
+            <img src="../assets/images/AMPTTiki.jpg" alt="Profile Avatar" class="profile-avatar" id="user-avatar">
+            <button class="avatar-edit-btn" id="avatar-edit-btn">
+              <iconify-icon icon="fluent:camera-edit-24-regular"></iconify-icon>
+            </button>
+          </div>
+          
+          <div class="profile-info">
+            <h1 class="profile-name" id="user-name">Digital Explorer</h1>
+            <p class="profile-bio" id="user-bio">Navigating both knowledge and lifestyle</p>
+            
+            <div class="profile-stats">
+              <div class="stat-item">
+                <span class="stat-value" id="ike-level">Level 1</span>
+                <span class="stat-label">Ikeverse</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value" id="digital-level">Level 1</span>
+                <span class="stat-label">Digitalverse</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value" id="bridge-score">75%</span>
+                <span class="stat-label">Bridge Score</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bridge View - Connecting Both Worlds -->
+      <section id="bridge" class="section-spacing">
+        <div class="section-header">
+          <h2>🌉 Bridge View</h2>
+          <p>Your journey across Ikeverse lifestyle and Digitalverse knowledge</p>
+        </div>
+
+        <div class="bridge-container">
+          <!-- Ikeverse Side -->
+          <div class="world-card ikeverse-side">
+            <div class="world-header">
+              <div class="world-icon">🌴</div>
+              <h3>Ikeverse Lifestyle</h3>
+              <span class="world-badge">Aloha Spirit</span>
+            </div>
+            
+            <div class="world-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%" data-skill="lifestyle"></div>
+              </div>
+              <span>Lifestyle Integration</span>
+            </div>
+            
+            <div class="world-stats">
+              <div class="stat">
+                <strong>Mindset Level:</strong>
+                <span id="ike-mindset">Developing</span>
+              </div>
+              <div class="stat">
+                <strong>Aloha Score:</strong>
+                <span id="aloha-score">72%</span>
+              </div>
+              <div class="stat">
+                <strong>Daily Practice:</strong>
+                <span id="daily-practice">3/7 days</span>
+              </div>
+            </div>
+            
+            <div class="world-actions">
+              <a href="../ikeverse.html" class="btn btn-ghost">Enter Ikeverse</a>
+              <button class="btn btn-primary" onclick="trackIkeProgress()">Log Practice</button>
+            </div>
+          </div>
+
+          <!-- Bridge Connection -->
+          <div class="bridge-center">
+            <div class="bridge-icon">⚡</div>
+            <div class="bridge-stats">
+              <div class="bridge-stat">
+                <span class="stat-value" id="knowledge-applied">12</span>
+                <span class="stat-label">Concepts Applied</span>
+              </div>
+              <div class="bridge-stat">
+                <span class="stat-value" id="wisdom-moments">8</span>
+                <span class="stat-label">Wisdom Moments</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Digitalverse Side -->
+          <div class="world-card digitalverse-side">
+            <div class="world-header">
+              <div class="world-icon">🌐</div>
+              <h3>Digitalverse Knowledge</h3>
+              <span class="world-badge">Blockchain Explorer</span>
+            </div>
+            
+            <div class="world-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 45%" data-skill="blockchain"></div>
+              </div>
+              <span>Blockchain Understanding</span>
+            </div>
+            
+            <div class="world-stats">
+              <div class="stat">
+                <strong>Learning Path:</strong>
+                <span id="current-path">Foundations</span>
+              </div>
+              <div class="stat">
+                <strong>Concepts Mastered:</strong>
+                <span id="concepts-mastered">8/25</span>
+              </div>
+              <div class="stat">
+                <strong>Critical Thinking:</strong>
+                <span id="critical-score">85%</span>
+              </div>
+            </div>
+            
+            <div class="world-actions">
+              <a href="../digitalverse.html" class="btn btn-ghost">Enter Digitalverse</a>
+              <button class="btn btn-primary" onclick="continueLearning()">Continue Learning</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Customization Section -->
+      <section id="customize" class="section-spacing">
+        <div class="section-header">
+          <h2>🎨 Customize Your Universe</h2>
+          <p>Personalize your experience across both worlds</p>
+        </div>
+
+        <div class="customization-grid">
+          <!-- Profile Customization -->
+          <div class="customization-card">
+            <h4>👤 Profile Identity</h4>
+            <div class="customization-options">
+              <div class="option-group">
+                <label>Display Name</label>
+                <input type="text" id="display-name" value="Digital Explorer" class="custom-input">
+              </div>
+              <div class="option-group">
+                <label>Bio</label>
+                <textarea id="user-bio-input" class="custom-textarea">Navigating both knowledge and lifestyle</textarea>
+              </div>
+              <div class="option-group">
+                <label>Avatar</label>
+                <div class="avatar-options">
+                  <div class="avatar-option active" data-avatar="default">
+                    <img src="/digitalverse/assets/images/AMPTTiki.jpg" alt="Default">
+                  </div>
+                  <div class="avatar-option" data-avatar="tech">
+                    <img src="/digitalverse/assets/images/catgirl.svg" alt="Tech">
+                  </div>
+                  <div class="avatar-option" data-avatar="nature">
+                    <img src="/digitalverse/assets/images/acs.svg" alt="Nature">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Theme Customization -->
+          <div class="customization-card">
+            <h4>🎨 Universe Themes</h4>
+            <div class="theme-options">
+              <div class="theme-option" data-theme="worldcreate">
+                <div class="theme-preview worldcreate-theme"></div>
+                <span>World Create</span>
+              </div>
+              <div class="theme-option" data-theme="cosmic">
+                <div class="theme-preview cosmic-theme"></div>
+                <span>Cosmic</span>
+              </div>
+              <div class="theme-option" data-theme="starry">
+                <div class="theme-preview starry-theme"></div>
+                <span>Starry</span>
+              </div>
+              <div class="theme-option" data-theme="aloha">
+                <div class="theme-preview aloha-theme"></div>
+                <span>Aloha</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Background Customization -->
+          <div class="customization-card">
+            <h4>🖼️ Background Style</h4>
+            <div class="background-options">
+              <div class="bg-option active" data-bg="dynamic">
+                <div class="bg-preview dynamic-bg"></div>
+                <span>Dynamic Video</span>
+              </div>
+              <div class="bg-option" data-bg="gradient">
+                <div class="bg-preview gradient-bg"></div>
+                <span>Gradient</span>
+              </div>
+              <div class="bg-option" data-bg="particles">
+                <div class="bg-preview particles-bg"></div>
+                <span>Particles</span>
+              </div>
+              <div class="bg-option" data-bg="solid">
+                <div class="bg-preview solid-bg"></div>
+                <span>Solid Color</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="customization-actions">
+          <button class="btn btn-primary" onclick="saveCustomizations()">Save Changes</button>
+          <button class="btn btn-ghost" onclick="resetCustomizations()">Reset to Default</button>
+        </div>
+      </section>
+
+      <!-- Recent Activity -->
+      <section class="section-spacing">
+        <div class="section-header">
+          <h2>📊 Recent Activity</h2>
+          <p>Your journey across both universes</p>
+        </div>
+
+        <div class="activity-timeline">
+          <div class="activity-item ikeverse-activity">
+            <div class="activity-icon">🌴</div>
+            <div class="activity-content">
+              <h4>Morning Mindfulness Practice</h4>
+              <p>Completed 10-minute meditation in Ikeverse</p>
+              <span class="activity-time">2 hours ago</span>
+            </div>
+          </div>
+          
+          <div class="activity-item digitalverse-activity">
+            <div class="activity-icon">🌐</div>
+            <div class="activity-content">
+              <h4>Blockchain Foundations Completed</h4>
+              <p>Mastered basic concepts in Digitalverse</p>
+              <span class="activity-time">1 day ago</span>
+            </div>
+          </div>
+          
+          <div class="activity-item bridge-activity">
+            <div class="activity-icon">⚡</div>
+            <div class="activity-content">
+              <h4>Wisdom Moment Recorded</h4>
+              <p>Applied blockchain knowledge to daily decision-making</p>
+              <span class="activity-time">2 days ago</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <a href="../index.html" class="footer-logo">Universal Profile</a>
+            <p class="footer-description">
+              Bridging Ikeverse lifestyle with Digitalverse knowledge
+            </p>
+          </div>
+          
+          <div class="footer-links">
+            <h4>Universes</h4>
+            <ul>
+              <li><a href="../index.html">AMP Home</a></li>
+              <li><a href="../ikeverse.html">Ikeverse</a></li>
+              <li><a href="../digitalverse.html">Digitalverse</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-links">
+            <h4>Profile</h4>
+            <ul>
+              <li><a href="#bridge">Bridge View</a></li>
+              <li><a href="#customize">Customize</a></li>
+              <li><a href="#progress">Progress</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p class="copyright">
+            &copy; <span id="current-year">2024</span> Universal Profile. Bridging worlds with Aloha spirit.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- JavaScript Files -->
+  <script src="../scripts/utils.js"></script>
+  <script src="../scripts/theme.js"></script>
+  <script src="../scripts/navigation.js"></script>
+  <script src="/digitalverse/scripts/profile/profile.js"></script>
+
+  <!-- Initialization -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set current year
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+      
+      // Initialize systems
+      if (window.ThemeManager) ThemeManager.init();
+      if (window.Navigation) Navigation.init();
+      if (window.ProfileManager) ProfileManager.init();
+      
+      console.log('🌉 Universal Profile initialized');
+    });
+  </script>
+</body>
+</html>
