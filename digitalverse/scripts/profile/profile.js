@@ -159,9 +159,9 @@ const ProfileManager = {
         if (avatar) {
             // Map avatar names to actual file paths
             const avatarMap = {
-                'default': '/digitalverse/assets/images/AMPTTiki.jpg',
-                'tech': '/digitalverse/assets/images/catgirl.svg',
-                'nature': '/digitalverse/assets/images/acs.svg'
+                'default': '../assets/images/AMPTTiki.jpg',
+                'tech': '../assets/images/catgirl.svg',
+                'nature': '../assets/images/acs.svg'
             };
             
             const avatarUrl = avatarMap[this.userData.profile.avatar] || avatarMap.default;
