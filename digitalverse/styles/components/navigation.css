@@ -41,7 +41,6 @@
   font-family: 'Inter', sans-serif;
   transition: var(--transition);
   flex-shrink: 0;
-  z-index: 1002;
 }
 
 .nav-brand .logo {
@@ -164,39 +163,6 @@
   border-color: var(--ike-accent);
 }
 
-/* Mobile styles for new navigation */
-@media (max-width: 768px) {
-  .nav-links a.nav-link {
-    width: 100%;
-    max-width: 400px;
-    margin: 0.25rem 0;
-    text-align: center;
-  }
-  
-  .btn-profile {
-    width: 100%;
-    justify-content: center;
-    margin: 0.5rem 0;
-  }
-  
-  .menu-toggle {
-    display: flex;
-  }
-  
-  /* Hamburger to X animation */
-  .menu-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-  }
-  
-  .menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .menu-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-  }
-}
-
 /* BUBBLE EFFECT */
 .nav-links a::before {
   content: '';
@@ -296,29 +262,6 @@
   background: linear-gradient(135deg, var(--ike-accent), #9400d3);
 }
 
-/* MENU TOGGLE - Initially hidden on desktop */
-.menu-toggle {
-  display: none;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--ike-text);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1.2rem;
-  z-index: 1002;
-}
-
-.menu-toggle:hover {
-  background: rgba(0, 247, 255, 0.1);
-  border-color: var(--ike-accent);
-  color: var(--ike-accent);
-}
-
 /* ========== MOBILE STYLES ========== */
 
 /* Tablet Styles */
@@ -367,7 +310,7 @@
   }
 }
 
-/* Mobile Styles - Full Mobile Menu */
+/* Mobile Styles - Full Mobile Menu - NUCLEAR Z-INDEX */
 @media (max-width: 768px) {
   .main-nav {
     padding: 0.75rem 1rem;
@@ -377,6 +320,7 @@
   
   .menu-toggle {
     display: flex;
+    z-index: 99999 !important; /* Extremely high z-index */
   }
   
   /* Hide desktop nav */
@@ -389,7 +333,7 @@
     bottom: 0;
     background: rgba(15, 23, 42, 0.98);
     backdrop-filter: blur(40px);
-    z-index: 1001;
+    z-index: 99998 !important; /* Extremely high z-index */
     margin: 0;
     padding: 5rem 1.5rem 2rem;
     flex: none;
@@ -432,6 +376,7 @@
   .nav-brand {
     font-size: 1.25rem;
     flex: 1;
+    z-index: 99999 !important; /* Extremely high z-index */
   }
   
   .nav-brand .logo::before {
@@ -479,7 +424,6 @@
   .menu-toggle {
     width: 40px;
     height: 40px;
-    font-size: 1.3rem;
   }
   
   .nav-links {
@@ -520,4 +464,28 @@
 /* Prevent body scroll when mobile menu is open */
 body.mobile-menu-open {
   overflow: hidden;
+}
+
+/* NUCLEAR OPTION: Force everything else to stay behind */
+#app > *:not(.main-nav):not(.nav-links) {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Force all other elements to stay behind mobile menu */
+main.container,
+.hero,
+.section-spacing,
+footer,
+.card,
+.protocol-card,
+.knowledge-path,
+.verification-callout,
+.skills-progress,
+.pattern-card,
+.mindset-card,
+.verification-card,
+.encouragement-card {
+  position: relative !important;
+  z-index: 1 !important;
 }

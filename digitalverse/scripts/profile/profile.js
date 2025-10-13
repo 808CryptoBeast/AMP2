@@ -41,6 +41,52 @@ const ProfileManager = {
         this.initEventListeners();
         
         console.log('✅ Profile Manager initialized');
+        
+        // Fix mobile navigation
+        this.fixMobileNavigation();
+    },
+
+    // Fix mobile navigation
+    fixMobileNavigation: function() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const body = document.body;
+
+        if (menuToggle && navLinks) {
+            // Remove any existing event listeners by cloning
+            const newToggle = menuToggle.cloneNode(true);
+            menuToggle.parentNode.replaceChild(newToggle, menuToggle);
+
+            // Add click event to toggle mobile menu
+            newToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+                newToggle.classList.toggle('active');
+                body.classList.toggle('mobile-menu-open');
+            });
+
+            // Close menu when clicking on links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                    newToggle.classList.remove('active');
+                    body.classList.remove('mobile-menu-open');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (navLinks.classList.contains('active') && 
+                    !navLinks.contains(e.target) && 
+                    !newToggle.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                    newToggle.classList.remove('active');
+                    body.classList.remove('mobile-menu-open');
+                }
+            });
+
+            console.log('📱 Mobile navigation fixed');
+        }
     },
 
     // Load user data from localStorage
